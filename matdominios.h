@@ -16,6 +16,7 @@ public:
     bool enDominio(int, int, int);
     void sacarDominio(int, int, int);
     void meterDominio(int, int, int);
+    void imprimirDominio();
 };
 
 

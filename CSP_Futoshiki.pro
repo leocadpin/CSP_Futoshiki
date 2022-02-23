@@ -25,13 +25,19 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
+    arista.cc \
         main.cpp \
         mainwindow.cpp \
+    matdominios.cc \
+    nodo.cc \
     tablero.cpp \
     solver.cpp
 
 HEADERS += \
+    arista.h \
     mainwindow.h \
+    matdominios.h \
+    nodo.h \
     tablero.h \
     solver.h
 

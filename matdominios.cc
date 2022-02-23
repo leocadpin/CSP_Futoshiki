@@ -1,4 +1,6 @@
 #include "matdominios.h"
+#include <iostream>
+using namespace std;
 
 matdominios::matdominios(int tam){
 
@@ -72,4 +74,22 @@ void matdominios::meterDominio(int fil, int col, int num){
     num = num - 1;
     matriz[fil][col][num] = 1;
 
+}
+
+void matdominios::imprimirDominio(){
+    int tm = ancho;
+
+    for (int l = 0; l < tm; l++){
+        for (int m = 0; m < tm; m++){
+            for (int n = 0; n < tm; n++){
+
+                cout << "p" << l  <<  m << n << " " << matriz[l][m][n] << " ";
+
+            }
+
+            cout<< endl;
+        }
+        cout<< endl;
+    }
+    
 }

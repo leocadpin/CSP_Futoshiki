@@ -1,5 +1,7 @@
 #include "solver.h"
-
+#include "arista.cc"
+#include "matdominios.cc"
+#include <queue>
 
 Solver::Solver(QObject *parent) : QObject(parent)
 {
@@ -150,8 +152,93 @@ bool Solver::factible(Tablero *tablero, int fil, int col, int tam, int elem){
 
 void Solver::ejecutarAC3(Tablero *tablero)
 {
-    std::cout<<"AC3: "<<"Esta función no está todavía implementada."<<std::endl;
+    //std::cout<<"AC3: "<<"Esta función no está todavía implementada."<<std::endl;
+    int num = tablero -> getSize();
+    int elem ;
+    //int contador=0;
+    Nodo mat[num][num];
+    matdominios dominio = matdominios(num);
 
+    queue< Arista > cola_aristas;
+
+    for(int i=0; i < num; i++){
+        for(int j=0; j < num; j++){
+            mat[i][j].setNodo(i, j);
+            elem = tablero->getCasilla(i,j);
+            if(elem != 0){
+                for(int k=1; k<=num; k++){
+                    if(k==elem){
+                        continue;
+                    }
+                    dominio.sacarDominio(i, j, k);
+                }
+            }
+      }
+    }
+
+    dominio.imprimirDominio();
+
+
+
+//    int count=0, tam = 4;
+//    int matriz[tam][tam][tam];
+//    for (int l = 0; l < tam; l++){
+//        for (int m = 0; m < tam; m++){
+//            for (int n = 0; n < tam; n++){
+//                count++;
+//                matriz[l][m][n] =count;
+
+//            }
+
+
+//        }
+
+//    }
+
+//    for (int l = 0; l < tam; l++){
+//        for (int m = 0; m < tam; m++){
+//            for (int n = 0; n < tam; n++){
+
+//                cout << matriz[l][m][n] << " ";
+
+//            }
+
+//            cout<< endl;
+//        }
+//        cout<< endl;
+//    }
+
+//     Arista a = Arista(mat[0][0], mat[0][1]);
+//    // a.imprimirArista();
+//    for(int i=0; i < num; i++){
+//         for(int j=0; j < num; j++){
+             
+//            if(j<num-1){
+//                for(int l=j+1; l<num; l++){
+//                   Arista b = Arista( mat[i][j], mat[i][l]);
+//                   cola_aristas.push(b);
+//                }
+//            }
+
+
+//            if(i<num-1){
+//                for(int l=i+1; l<num; l++){
+//                   Arista b = Arista( mat[i][j], mat[l][j]);
+//                   cola_aristas.push(b);
+//                }
+//            }
+//        }
+//    }
+
+//    while(!cola_aristas.empty()){
+//        a = cola_aristas.front();
+//        cola_aristas.pop();
+//        a.imprimirArista();
+//        contador++;
+//    }
+
+
+    
     return;
 }
 
