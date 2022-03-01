@@ -11,6 +11,8 @@ private:
 public:
     Arista(Nodo, Nodo);
     ~Arista();
+    Nodo get_n2();
+    Nodo get_n1();
     void imprimirArista();
 };
 

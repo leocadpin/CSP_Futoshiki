@@ -3,7 +3,7 @@
 #include "matdominios.cc"
 #include <queue>
 
-matdominios dominio = matdominios(num);
+
 
 Solver::Solver(QObject *parent) : QObject(parent)
 {
@@ -156,13 +156,17 @@ void Solver::ejecutarAC3(Tablero *tablero)
 {
     //std::cout<<"AC3: "<<"Esta función no está todavía implementada."<<std::endl;
     int num = tablero -> getSize();
-    int elem ;
+    int elem, centinela_dominio_dk = 0, aux_centinela=0, tam_kiwi;
     //int contador=0;
-    Arista arya;
+    //Arista arya, reserva;
     Nodo mat[num][num];
-    
+    Nodo arya_n1, arya_n2, reserva_n1, reserva_n2;
     bool cambio = false;
     queue< Arista > cola_aristas;
+    queue< Arista > cola_descartes;
+    matdominios dominio = matdominios(num);
+
+
 
     for(int i=0; i < num; i++){
         for(int j=0; j < num; j++){
@@ -205,39 +209,81 @@ void Solver::ejecutarAC3(Tablero *tablero)
             }
         }
     }
-
+// ESQUEMA AC3 
     while(!cola_aristas.empty()){
-        arya = cola_aristas.front();
+        
+        Arista arya = cola_aristas.front();
+        arya_n1 = arya.get_n1();
+        arya_n2 = arya.get_n2();
+        cola_descartes.push(arya);
         cola_aristas.pop();
+
+        centinela_dominio_dk = 0;
+
         for(int i=1; i <=num; i++ ){
-            if(dominio.enDominio(arya.n1.get_x(), arya.n1.get_y(), i )){
-                if(!consistente(tablero, i, arya.n2)){
+         
+            if(dominio.enDominio(arya_n1.get_x(), arya_n1.get_y(), i )){
+                if(!consistente(tablero, i, arya_n2.get_x(), arya_n2.get_y())){
                     
-                    
+                    dominio.sacarDominio(arya_n1.get_x(), arya_n1.get_y(), i);
+                    centinela_dominio_dk++ ;
                     cambio =true;
-                }
-                else{
 
                 }
             }
-            else{
+            else{//SI i no esta en el dominio de  Vk 
+                centinela_dominio_dk++ ;
                 continue;
+
             }
         }
 
+        if(centinela_dominio_dk == num){
+            std::cout << "Salimos sin solucion" << endl;
+            return;
+        }
+        
+        if(cambio){
 
+            tam_kiwi = cola_descartes.size();
+            aux_centinela=0;
+            while(aux_centinela < tam_kiwi){
+                
+                // if((reserva.n2.get_x() == ari_centinela.n2.get_x()) and (reserva.n2.get_y() == ari_centinela.n2.get_y()) ){
+                //     if((reserva.n1.get_x() == ari_centinela.n1.get_x()) and (reserva.n1.get_y() == ari_centinela.n1.get_y())){
+                //         sentinela= true;
+                //     }
+                // }
+
+
+                Arista reserva = cola_descartes.front();
+                reserva_n1 = reserva.get_n1();
+                reserva_n2 = reserva.get_n2();
+                cola_descartes.pop();
+
+                if((reserva_n2.get_x() == arya_n1.get_x()) and (reserva_n2.get_y() == arya_n1.get_y()) ){
+                    cola_aristas.push(reserva);
+                }
+                else{
+                    cola_descartes.push(reserva);
+                }
+                aux_centinela++; 
+            }
+                
+        }
+        
     }
 
     
     return;
 }
 
-bool Solver::consistente(Tablero *tablero, int num_Vk, Nodo Vm){
+bool Solver::consistente(Tablero *tablero, int num_Vk, int x, int y){
     bool resultado=false;
-    for(int contando=0; contando<tablero.getSize(); contando++  ){
-        if(i==dominio[]){
+    for(int contando=0; contando<tablero->getSize(); contando++  ){
+        // if(i==dominio[]){
 
-        }
+        // }
     }   
     resultado;
 }
