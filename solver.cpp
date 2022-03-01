@@ -156,9 +156,10 @@ void Solver::ejecutarAC3(Tablero *tablero)
     int num = tablero -> getSize();
     int elem ;
     //int contador=0;
+    Arista arya;
     Nodo mat[num][num];
     matdominios dominio = matdominios(num);
-
+    bool cambio = false;
     queue< Arista > cola_aristas;
 
     for(int i=0; i < num; i++){
@@ -179,64 +180,49 @@ void Solver::ejecutarAC3(Tablero *tablero)
     dominio.imprimirDominio();
 
 
-
-//    int count=0, tam = 4;
-//    int matriz[tam][tam][tam];
-//    for (int l = 0; l < tam; l++){
-//        for (int m = 0; m < tam; m++){
-//            for (int n = 0; n < tam; n++){
-//                count++;
-//                matriz[l][m][n] =count;
-
-//            }
-
-
-//        }
-
-//    }
-
-//    for (int l = 0; l < tam; l++){
-//        for (int m = 0; m < tam; m++){
-//            for (int n = 0; n < tam; n++){
-
-//                cout << matriz[l][m][n] << " ";
-
-//            }
-
-//            cout<< endl;
-//        }
-//        cout<< endl;
-//    }
-
-//     Arista a = Arista(mat[0][0], mat[0][1]);
-//    // a.imprimirArista();
-//    for(int i=0; i < num; i++){
-//         for(int j=0; j < num; j++){
+    for(int i=0; i < num; i++){
+         for(int j=0; j < num; j++){
              
-//            if(j<num-1){
-//                for(int l=j+1; l<num; l++){
-//                   Arista b = Arista( mat[i][j], mat[i][l]);
-//                   cola_aristas.push(b);
-//                }
-//            }
+            if(j<num-1){
+                for(int l=j+1; l<num; l++){
+                   Arista b = Arista( mat[i][j], mat[i][l]);
+                   cola_aristas.push(b);
+                   b = Arista( mat[i][l], mat[i][j]);
+                   cola_aristas.push(b);
+                }
+            }
 
 
-//            if(i<num-1){
-//                for(int l=i+1; l<num; l++){
-//                   Arista b = Arista( mat[i][j], mat[l][j]);
-//                   cola_aristas.push(b);
-//                }
-//            }
-//        }
-//    }
+            if(i<num-1){
+                for(int l=i+1; l<num; l++){
+                   Arista b = Arista( mat[i][j], mat[l][j]);
+                   cola_aristas.push(b);
+                   b = Arista( mat[j][j], mat[i][j]);
+                   cola_aristas.push(b);
+                }
+            }
+        }
+    }
 
-//    while(!cola_aristas.empty()){
-//        a = cola_aristas.front();
-//        cola_aristas.pop();
-//        a.imprimirArista();
-//        contador++;
-//    }
+    while(!cola_aristas.empty()){
+        arya = cola_aristas.front();
+        cola_aristas.pop();
+        for(int i=1; i <=num; i++ ){
+            if(dominio.enDominio(arya.n1.get_x(), arya.n1.get_y(), i )){
+                if(){
 
+                }
+                else{
+                    
+                }
+            }
+            else{
+                continue;
+            }
+        }
+
+
+    }
 
     
     return;
