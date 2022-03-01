@@ -16,7 +16,7 @@ public:
     void ejecutarFC(Tablero *);
     bool bt_futoshiki(Tablero *, int, int, int);
     bool factible(Tablero *, int , int, int , int);
-
+    bool consistente(Tablero *, int, Nodo);
 signals:
 
 public slots:

@@ -3,6 +3,8 @@
 #include "matdominios.cc"
 #include <queue>
 
+matdominios dominio = matdominios(num);
+
 Solver::Solver(QObject *parent) : QObject(parent)
 {
     backTrackingJumps = 0;
@@ -158,7 +160,7 @@ void Solver::ejecutarAC3(Tablero *tablero)
     //int contador=0;
     Arista arya;
     Nodo mat[num][num];
-    matdominios dominio = matdominios(num);
+    
     bool cambio = false;
     queue< Arista > cola_aristas;
 
@@ -209,11 +211,13 @@ void Solver::ejecutarAC3(Tablero *tablero)
         cola_aristas.pop();
         for(int i=1; i <=num; i++ ){
             if(dominio.enDominio(arya.n1.get_x(), arya.n1.get_y(), i )){
-                if(){
-
+                if(!consistente(tablero, i, arya.n2)){
+                    
+                    
+                    cambio =true;
                 }
                 else{
-                    
+
                 }
             }
             else{
@@ -226,6 +230,16 @@ void Solver::ejecutarAC3(Tablero *tablero)
 
     
     return;
+}
+
+bool Solver::consistente(Tablero *tablero, int num_Vk, Nodo Vm){
+    bool resultado=false;
+    for(int contando=0; contando<tablero.getSize(); contando++  ){
+        if(i==dominio[]){
+
+        }
+    }   
+    resultado;
 }
 
 void Solver::ejecutarFC(Tablero *tablero)
