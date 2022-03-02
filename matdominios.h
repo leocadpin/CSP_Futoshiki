@@ -10,7 +10,7 @@ private:
     int profundo;
     int*** matriz;
 public:
-
+    void resize_matdominios(int);
     matdominios(int);
     ~matdominios();
     bool enDominio(int, int, int);

@@ -2,7 +2,7 @@
 #define SOLVER_H
 
 #include "tablero.h"
-
+#include "matdominios.h"
 #include <QObject>
 
 class Solver : public QObject
@@ -16,7 +16,7 @@ public:
     void ejecutarFC(Tablero *);
     bool bt_futoshiki(Tablero *, int, int, int);
     bool factible(Tablero *, int , int, int , int);
-    bool consistente(Tablero *, int, int, int);
+    bool consistente(Tablero *, int, int, int, int, int);
 signals:
 
 public slots:
