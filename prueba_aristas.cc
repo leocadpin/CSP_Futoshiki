@@ -36,7 +36,7 @@ int main(){
                 for(int l=i+1; l<num; l++){
                    Arista b = Arista( mat[i][j], mat[l][j]);
                    cola_aristas.push(b);
-                   b = Arista( mat[j][j], mat[i][j]);
+                   b = Arista( mat[l][j], mat[i][j]);
                    cola_aristas.push(b);
                 }
             }

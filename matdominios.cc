@@ -124,8 +124,8 @@ void matdominios::imprimirDominio(){
         for (int m = 0; m < tm; m++){
             for (int n = 0; n < tm; n++){
 
-                cout << "p" << l  <<  m << n << " " << matriz[l][m][n] << " ";
-
+          //      cout << "p" << l  <<  m << n << " " << matriz[l][m][n] << " ";
+            cout  << matriz[l][m][n];
             }
 
             cout<< endl;

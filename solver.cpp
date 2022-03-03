@@ -57,41 +57,48 @@ bool Solver::bt_futoshiki(Tablero *tablero, int fil, int col, int tam){
         for(int l=1; l<=tam ; l++){
 
             if(dominio.enDominio(fil, col, l )){
-                if(factible(tablero, fil, col, tam, l)){
-                    tablero->setCasilla(fil, col, l);
+                    if(factible(tablero, fil, col, tam, l)){
+                        tablero->setCasilla(fil, col, l);
 
-                    //ESTE ES NUESTRO CASO BASE: CUANDO LLEGAMOS A COMPLETAR EL
-                    //TABLERO TENDREMOS LA SOLUCION
-                    if(tablero->tableroCompleto() ){
+                        //ESTE ES NUESTRO CASO BASE: CUANDO LLEGAMOS A COMPLETAR EL
+                        //TABLERO TENDREMOS LA SOLUCION
+                        if(tablero->tableroCompleto() ){
 
-                        return res=true;
-                    }
+                            return res=true;
+                        }
 
-                    //LLAMADAS A LA RECURSIVIDAD
-                    if(col <=0){
-                        res =   bt_futoshiki(tablero, fil-1,tam-1,tam);
+                        //LLAMADAS A LA RECURSIVIDAD
+                        if(col <=0){
+                            res =   bt_futoshiki(tablero, fil-1,tam-1,tam);
+                        }
+                        else{
+                            res=bt_futoshiki(tablero, fil,col-1,tam);
+                        }
+
+                        //IMPORTANTE INDICAR QUE TERMINEMOS LA FUNCION SI YA HEMOS ENCONTRADO LA SOLUCION
+                        if(res==true){
+                            return true;
+                        }
+
+                        //SI HEMOS PROBADO TODOS LOS CASOS DEVOLVEMOS FALSE Y LLENAMOS CON 0 LA CASILLA
+                        if(l==tam){
+                            tablero->setCasilla(fil, col, 0);
+                            return false;
+                        }
                     }
                     else{
-                        res=bt_futoshiki(tablero, fil,col-1,tam);
+                        if(l==tam){
+                            return false;
+                        }
                     }
 
-                    //IMPORTANTE INDICAR QUE TERMINEMOS LA FUNCION SI YA HEMOS ENCONTRADO LA SOLUCION
-                    if(res==true){
-                        return true;
-                    }
+            }
+            else {
+                if(l==tam){
+                    tablero->setCasilla(fil, col, 0);
 
-                    //SI HEMOS PROBADO TODOS LOS CASOS DEVOLVEMOS FALSE Y LLENAMOS CON 0 LA CASILLA
-                    if(l==tam){
-                        tablero->setCasilla(fil, col, 0);
-                        return false;
-                    }
                 }
-                else{
-                    if(l==tam){
-                        return false;
-                    }
-                }
-
+               continue;
             }
         }
     }
@@ -208,7 +215,7 @@ void Solver::ejecutarAC3(Tablero *tablero)
                 for(int l=i+1; l<num; l++){
                    Arista b = Arista( mat[i][j], mat[l][j]);
                    cola_aristas.push_back(b);
-                   b = Arista( mat[j][j], mat[i][j]);
+                   b = Arista( mat[l][j], mat[i][j]);
                    cola_aristas.push_back(b);
                 }
             }
@@ -219,8 +226,15 @@ void Solver::ejecutarAC3(Tablero *tablero)
     while(!cola_aristas.empty()){
         
         Arista arya = cola_aristas.front();
+        arya.imprimirArista();
+
         arya_n1 = arya.get_n1();
         arya_n2 = arya.get_n2();
+//        if((3 == arya_n1.get_x()) and (0 == arya_n1.get_y()) ){
+//            if((2 == arya_n2.get_x()) and (0 == arya_n2.get_y()) ){
+//            break;
+//            }
+//        }
         cola_descartes.push_back(arya);
         cola_aristas.pop_front();
 
@@ -268,7 +282,7 @@ void Solver::ejecutarAC3(Tablero *tablero)
                 cola_descartes.pop_front();
 
                 if((reserva_n2.get_x() == arya_n1.get_x()) and (reserva_n2.get_y() == arya_n1.get_y()) ){
-                    cola_aristas.push_front(reserva);
+                    cola_aristas.push_back(reserva);
                 }
                 else{
                     cola_descartes.push_back(reserva);
@@ -286,7 +300,7 @@ void Solver::ejecutarAC3(Tablero *tablero)
     dominio.imprimirDominio();
     int fil=num-1;
     int col=num-1;
-   // bt_futoshiki(tablero, fil, col, num);
+    bt_futoshiki(tablero, fil, col, num);
     return;
 }
 
@@ -370,7 +384,7 @@ bool Solver::consistente(Tablero *tablero, int num_Vk, int x_n1, int y_n1, int x
 
                 if(y_n1 == y_n2){
                     dist2 = x_n2 - x_n1;
-                    if(dist2 == 1){
+                    if(dist2 == -1){
                         if(arriba==1){
                             if(num_Vk > contando){
                                 resultado=true;
