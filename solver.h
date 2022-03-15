@@ -17,6 +17,7 @@ public:
     bool bt_futoshiki(Tablero *, int, int, int);
     bool fc_futoshiki(Tablero *, int, int, int);
     bool factible(Tablero *, int , int, int , int);
+    bool forward(Tablero *, int, int , int, int);
     bool consistente(Tablero *, int, int, int, int, int);
 signals:
 

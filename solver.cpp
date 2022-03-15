@@ -432,8 +432,24 @@ void Solver::ejecutarFC(Tablero *tablero)
     int tam = tablero -> getSize(); // tamaño del tablero
     int fil=tam-1, col=tam-1;
     dominio.resize_matdominios(tam);
+    podado.resize_matdominios(tam);
 
     backTrackingJumps = 0;
+
+    for(int i=0; i < num; i++){
+        for(int j=0; j < num; j++){
+            mat[i][j].setNodo(i, j);
+            elem = tablero->getCasilla(i,j);
+            if(elem != 0){
+                for(int k=1; k<=num; k++){
+                    if(k==elem){
+                        continue;
+                    }
+                    dominio.sacarDominio(i, j, k);
+                }
+            }
+      }
+    }
 
     fc_futoshiki(tablero, 0, 0, tam);
 
@@ -451,10 +467,18 @@ bool Solver::fc_futoshiki(Tablero *tablero, int fil, int col, int tam){
            }
            else{
 
-               if(forward()){
-                   if(fc_futoshiki()){
-                       return true;
-                   }
+               if(forward(tablero, fil, col, tam, xi)){
+                    if(col==tam-1){
+
+                        if(fc_futoshiki(tablero, fil+1, 0)){
+                            return true;
+                        }
+                    }
+                    else{
+                        if(fc_futoshiki(tablero, fil+1, col+1)){
+                            return true;
+                        }
+                    }    
                }
                else{
                    restaura();
@@ -474,10 +498,67 @@ bool Solver::fc_futoshiki(Tablero *tablero, int fil, int col, int tam){
 
 }
 
-//bool Solver::forward(){
+//Funcion que realiza la comprobacion hacia adelante
+bool Solver::forward(Tablero *tablero, int fil, int col, int tam, int valor){
+    // Comprobamos los valores en el dominio de las filas siguientes
 
-//}
+    for(int fila_forward = fil+1; fila_forward < tam; fila_forward++){
+        bool vacio = true;
 
-//void Solver::restaura(){
+        for(int k=1; k <= tam; k++){
+            //Primero comprobamos hacia adelante con las filas
+            if(dominio.enDominio(fila_forward, col, k)){
+                if(/*(valor,k)*/){
+                    vacio = false;
+                }
+                else{
+                    // el valor k no es consistente con la asignacion puesta 
+                    dominio.sacarDominio(fila_forward, col, k);
+                    podados.podarValor(fila_forward,col, k);
+                }
 
-//}
+                if(vacio){
+                    return false;
+                }
+
+            }
+            //Si el valor no esta en el dominio de la siguiente fila
+            else{
+                if(fila_forward == tam){
+                    return false;
+                }
+                continue;
+            }
+
+            if(dominio.enDominio(fil, fila_forward, k)){
+                if(/*(valor,k)*/){
+                    vacio = false;
+                }
+                else{
+                    // el valor k no es consistente con la asignacion puesta 
+                    dominio.sacarDominio(fil, fila_forward, k);
+                    podados.podarValor(fil,fila_forward, k);
+                }
+
+                if(vacio){
+                    return false;
+                }
+
+            }
+            //Si el valor no esta en el dominio de la siguiente fila
+            else{
+                if(fila_forward == tam){
+                    return false;
+                }
+                continue;
+            }    
+                
+        }
+    }
+
+    return true;
+}
+
+void Solver::restaura(){
+ 
+}
