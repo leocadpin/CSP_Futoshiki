@@ -433,12 +433,12 @@ void Solver::ejecutarFC(Tablero *tablero)
     int fil=tam-1, col=tam-1;
     dominio.resize_matdominios(tam);
     podado.resize_matdominios(tam);
-
+    int elem = 0;
     backTrackingJumps = 0;
 
     for(int i=0; i < num; i++){
         for(int j=0; j < num; j++){
-            mat[i][j].setNodo(i, j);
+            
             elem = tablero->getCasilla(i,j);
             if(elem != 0){
                 for(int k=1; k<=num; k++){
@@ -470,12 +470,12 @@ bool Solver::fc_futoshiki(Tablero *tablero, int fil, int col, int tam){
                if(forward(tablero, fil, col, tam, xi)){
                     if(col==tam-1){
 
-                        if(fc_futoshiki(tablero, fil+1, 0)){
+                        if(fc_futoshiki(tablero, fil+1, 0, tam)){
                             return true;
                         }
                     }
                     else{
-                        if(fc_futoshiki(tablero, fil+1, col+1)){
+                        if(fc_futoshiki(tablero, fil+1, col+1, tam)){
                             return true;
                         }
                     }    
