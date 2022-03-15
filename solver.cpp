@@ -3,7 +3,8 @@
 #include "matdominios.cc"
 #include <deque>
 #include<math.h>
- matdominios dominio = matdominios(1);
+matdominios dominio = matdominios(1);
+matdominios podado = matdominios(1);
 
 Solver::Solver(QObject *parent) : QObject(parent)
 {
@@ -17,28 +18,10 @@ void Solver::ejecutarBT(Tablero *tablero)
     int tam = tablero -> getSize(); // tamaño del tablero
     int fil=tam-1, col=tam-1;
     dominio.resize_matdominios(tam);
+    backTrackingJumps = 0;
+
     bt_futoshiki(tablero, fil, col, tam);
-    std::cout << this->backTrackingJumps <<  std::endl;
-    /*
-    for(int i = 0; i<tam; i++){
-        for(int j = 0; j<tam; j++ ){
-
-            // Si la posicion ya esta ocupada la saltamos
-            elem = tablero->getElement(i,j);
-            //Nos quedamos con la primera posicion sin ser rellenada
-            if(elem == 0){
-                fil = i;
-                col = j;
-
-                i=tam+1;
-                j=tam+1;
-            }
-
-        }
-    }
-    */
-    //probamos con elementos de 1 a n
-
+    std::cout << this->backTrackingJumps <<  std::endl;   
 
 
 }
@@ -178,7 +161,7 @@ void Solver::ejecutarAC3(Tablero *tablero)
     deque< Arista > cola_descartes;
     dominio.resize_matdominios(num);
 
-    int debug=0;
+
 
     for(int i=0; i < num; i++){
         for(int j=0; j < num; j++){
@@ -195,7 +178,6 @@ void Solver::ejecutarAC3(Tablero *tablero)
       }
     }
 
-    dominio.imprimirDominio();
 
 
     for(int i=0; i < num; i++){
@@ -226,7 +208,7 @@ void Solver::ejecutarAC3(Tablero *tablero)
     while(!cola_aristas.empty()){
         
         Arista arya = cola_aristas.front();
-        arya.imprimirArista();
+
 
         arya_n1 = arya.get_n1();
         arya_n2 = arya.get_n2();
@@ -292,15 +274,19 @@ void Solver::ejecutarAC3(Tablero *tablero)
                 
         }
 
-    dominio.imprimirDominio();
-    debug++;
-    std::cout << debug << endl;
+
+
+
     }
 
-    dominio.imprimirDominio();
+
     int fil=num-1;
     int col=num-1;
+    backTrackingJumps = 0;
+
     bt_futoshiki(tablero, fil, col, num);
+    dominio.imprimirDominio();
+    std::cout << this->backTrackingJumps <<  std::endl;
     return;
 }
 
@@ -443,6 +429,55 @@ void Solver::ejecutarFC(Tablero *tablero)
 {
     std::cout<<"Forward Checking: "<<"Esta función no está todavía implementada."<<std::endl;
 
+    int tam = tablero -> getSize(); // tamaño del tablero
+    int fil=tam-1, col=tam-1;
+    dominio.resize_matdominios(tam);
+
+    backTrackingJumps = 0;
+
+    fc_futoshiki(tablero, 0, 0, tam);
+
+    std::cout << this->backTrackingJumps <<  std::endl;
     return;
 }
 
+bool Solver::fc_futoshiki(Tablero *tablero, int fil, int col, int tam){
+    int xi;
+    for(int i = 1; i<= tam; i++){
+        if(dominio.enDominio(fil, col, i)){
+           xi= i;
+           if(fil == tam-1 and col==tam-1){
+               return true;
+           }
+           else{
+
+               if(forward()){
+                   if(fc_futoshiki()){
+                       return true;
+                   }
+               }
+               else{
+                   restaura();
+               }
+               return false;
+           }
+
+
+        }
+        else{
+            if(i==tam){
+                break;
+            }
+            continue;
+        }
+    }
+
+}
+
+//bool Solver::forward(){
+
+//}
+
+//void Solver::restaura(){
+
+//}

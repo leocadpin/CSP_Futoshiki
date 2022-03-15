@@ -15,6 +15,7 @@ public:
     void ejecutarAC3(Tablero *);
     void ejecutarFC(Tablero *);
     bool bt_futoshiki(Tablero *, int, int, int);
+    bool fc_futoshiki(Tablero *, int, int, int);
     bool factible(Tablero *, int , int, int , int);
     bool consistente(Tablero *, int, int, int, int, int);
 signals:
