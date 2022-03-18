@@ -14,10 +14,13 @@ public:
     void ejecutarBT(Tablero *);
     void ejecutarAC3(Tablero *);
     void ejecutarFC(Tablero *);
+
+    void restaura(matdominios, int, int, int);
+    bool consistente_fc(Tablero *, int , int , int , int , int , int){
     bool bt_futoshiki(Tablero *, int, int, int);
     bool fc_futoshiki(Tablero *, int, int, int);
     bool factible(Tablero *, int , int, int , int);
-    bool forward(Tablero *, int, int , int, int);
+    bool forward(Tablero *, int, int , int, int, matdominios);
     bool consistente(Tablero *, int, int, int, int, int);
 signals:
 

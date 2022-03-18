@@ -12,6 +12,7 @@ private:
 public:
     void resize_matdominios(int);
     matdominios(int);
+    matdominios(int, int);
     ~matdominios();
     bool enDominio(int, int, int);
     void sacarDominio(int, int, int);

@@ -4,7 +4,7 @@
 #include <deque>
 #include<math.h>
 matdominios dominio = matdominios(1);
-matdominios podado = matdominios(1);
+
 
 Solver::Solver(QObject *parent) : QObject(parent)
 {
@@ -453,12 +453,24 @@ void Solver::ejecutarFC(Tablero *tablero)
 
     fc_futoshiki(tablero, 0, 0, tam);
 
+    for(int i = 0; i<tam; i++){
+        for(int j = 0; j<tam; j++){
+            for(int k = 0; k<tam; k++){
+                if(dominio.enDominio(i,j,k)){
+                    tablero->setCasilla(i,j,k);
+                
+                }
+            }
+        }
+    }
     std::cout << this->backTrackingJumps <<  std::endl;
     return;
 }
 
 bool Solver::fc_futoshiki(Tablero *tablero, int fil, int col, int tam){
     int xi;
+    matdominios podado = matdominios(tam, 0);
+    backTrackingJumps ++;
     for(int i = 1; i<= tam; i++){
         if(dominio.enDominio(fil, col, i)){
            xi= i;
@@ -467,7 +479,7 @@ bool Solver::fc_futoshiki(Tablero *tablero, int fil, int col, int tam){
            }
            else{
 
-               if(forward(tablero, fil, col, tam, xi)){
+               if(forward(tablero, fil, col, tam, xi, podado, podado)){
                     if(col==tam-1){
 
                         if(fc_futoshiki(tablero, fil+1, 0, tam)){
@@ -481,7 +493,7 @@ bool Solver::fc_futoshiki(Tablero *tablero, int fil, int col, int tam){
                     }    
                }
                else{
-                   restaura();
+                   restaura(podado, fil, col, tam);
                }
                return false;
            }
@@ -499,7 +511,7 @@ bool Solver::fc_futoshiki(Tablero *tablero, int fil, int col, int tam){
 }
 
 //Funcion que realiza la comprobacion hacia adelante
-bool Solver::forward(Tablero *tablero, int fil, int col, int tam, int valor){
+bool Solver::forward(Tablero *tablero, int fil, int col, int tam, int valor, matdominios podado){
     // Comprobamos los valores en el dominio de las filas siguientes
 
     for(int fila_forward = fil+1; fila_forward < tam; fila_forward++){
@@ -508,13 +520,18 @@ bool Solver::forward(Tablero *tablero, int fil, int col, int tam, int valor){
         for(int k=1; k <= tam; k++){
             //Primero comprobamos hacia adelante con las filas
             if(dominio.enDominio(fila_forward, col, k)){
-                if(/*(valor,k)*/){
+                
+                
+                
+
+
+                if(consistente_fc(tablero, valor, fil, col, k, fila_forward, col)){
                     vacio = false;
                 }
                 else{
                     // el valor k no es consistente con la asignacion puesta 
                     dominio.sacarDominio(fila_forward, col, k);
-                    podados.podarValor(fila_forward,col, k);
+                    podado.meterDominio(fila_forward,col, k);
                 }
 
                 if(vacio){
@@ -531,13 +548,13 @@ bool Solver::forward(Tablero *tablero, int fil, int col, int tam, int valor){
             }
 
             if(dominio.enDominio(fil, fila_forward, k)){
-                if(/*(valor,k)*/){
+                if(consistente_fc(tablero, valor, fil, col, k, fil, fila_forward)){
                     vacio = false;
                 }
                 else{
                     // el valor k no es consistente con la asignacion puesta 
                     dominio.sacarDominio(fil, fila_forward, k);
-                    podados.podarValor(fil,fila_forward, k);
+                    podado.meterDominio(fil,fila_forward, k);
                 }
 
                 if(vacio){
@@ -559,6 +576,153 @@ bool Solver::forward(Tablero *tablero, int fil, int col, int tam, int valor){
     return true;
 }
 
-void Solver::restaura(){
+bool Solver::consistente_fc(Tablero *tablero, int num_Vk, int x_n1, int y_n1, int contando, int x_n2, int y_n2){
+    bool resultado=false;
+    float dist ;
+    int dist2, arriba=0, abajo=0, derecha=0,izquierda=0, tamta = tablero->getSize();
+    dist =sqrt(((x_n2-x_n1)*(x_n2-x_n1)) + ((y_n2-y_n1)*(y_n2-y_n1)));
+    
+        
+            if(num_Vk==contando){
+                
+                resultado=false;
+                
+            }
+
+
+            if(dist<=1.0){
+                if(x_n1 < tamta-1){
+
+                    abajo = tablero->getElement(2*x_n1+1, y_n1*2);
+
+                }
+                if(x_n1 > 0){
+
+                    arriba = tablero->getElement(2*x_n1-1, y_n1*2);
+
+                }
+                if(y_n1 < tamta-1){
+
+                    derecha = tablero->getElement(x_n1*2, 2*y_n1+1);
+
+                }
+                if(y_n1 > 0){
+
+                    izquierda = tablero->getElement(2*x_n1, 2*y_n1-1);
+
+                }
+
+                if(x_n1 == x_n2){
+                    dist2 = y_n2 - y_n1;
+                    if(dist2 == 1){
+                        if(derecha==1){
+                            if(num_Vk < contando){
+                                resultado=true;
+                                
+                            }
+                        }
+                        if(derecha== -1){
+                            if(num_Vk > contando){
+                                resultado=true;
+                                
+                            }
+                        }
+                        if(derecha== 0){
+                            
+                                resultado=true;
+                            
+                        }
+                    }
+                    else{ // dist==-1
+                        if(izquierda==1){
+                            if(num_Vk > contando){
+                                resultado=true;
+                                
+                            }
+                        }
+                        if(izquierda== -1){
+                            if(num_Vk < contando){
+                                resultado=true;
+                                
+                            }
+                        }
+                        if(izquierda== 0){
+                            
+                                resultado=true;
+
+                        }
+                    }
+                }
+
+                if(y_n1 == y_n2){
+                    dist2 = x_n2 - x_n1;
+                    if(dist2 == -1){
+                        if(arriba==1){
+                            if(num_Vk > contando){
+                                resultado=true;
+                                
+                            }
+                        }
+                        if(arriba== -1){
+                            if(num_Vk < contando){
+                                resultado=true;
+                                
+                            }
+                        }
+                        if(arriba== 0){
+                            
+                                resultado=true;
+                                
+                            
+                        }
+                    }
+                    else{ // dist==-1
+                        if(abajo==1){
+                            if(num_Vk < contando){
+                                resultado=true;
+                                
+                            }
+                        }
+                        if(abajo == -1){
+                            if(num_Vk > contando){
+                                resultado=true;
+                                
+                            }
+                        }
+                        if(abajo== 0){
+                            
+                                resultado=true;
+                                
+                        }
+                    }
+                }
+
+            }
+            else{
+                resultado=true;
+                
+            }
+            
+        
+        
+        
+        
+    
+    return resultado;
+}
+
+
+void Solver::restaura(matdominios podado, int fil, int col, int tam){
  
+    for(int i = fil+1; i<tam; i++){
+        for(int j = col+1; j < tam; j++){
+            for(int k = 1 ; k <= tam; k++){
+                if(podado.enDominio(i,j, k)){
+                    podado.sacarDominio(i, j, k);
+                    dominio.meterDominio(i, j, k);
+                }
+            }
+        }
+    }
+
 }

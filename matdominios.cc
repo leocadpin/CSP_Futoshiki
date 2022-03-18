@@ -37,6 +37,44 @@ matdominios::matdominios(int tam){
     }
 
 }
+
+
+matdominios::matdominios(int tam, int valor){
+
+    ancho = tam;
+    alto = tam;
+    profundo = tam;
+
+    matriz = new int**[tam];
+    
+    for (int i = 0; i < tam; i++) {
+ 
+        // Allocate memory blocks for
+        // rows of each 2D array
+        matriz[i] = new int*[tam];
+ 
+        for (int j = 0; j < tam; j++) {
+ 
+            // Allocate memory blocks for
+            // columns of each 2D array
+            matriz[i][j] = new int[tam];
+        }
+    }
+
+
+    for (int i = 0; i < tam; i++) {
+        for (int j = 0; j < tam; j++) {
+            for (int k = 0; k < tam; k++) {
+ 
+                // Assign values to the
+                // memory blocks created
+                matriz[i][j][k] = valor;
+            }
+        }
+    }
+
+}
+
 void matdominios::resize_matdominios(int tam){
     // Deallocate memory
     for (int i = 0; i < alto; i++) {
