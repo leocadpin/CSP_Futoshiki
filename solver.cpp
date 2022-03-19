@@ -20,7 +20,7 @@ void Solver::ejecutarBT(Tablero *tablero)
     dominio.resize_matdominios(tam);
     backTrackingJumps = 0;
 
-    bt_futoshiki(tablero, fil, col, tam);
+    bt_futoshiki(tablero, 0, 0, tam);
     std::cout << this->backTrackingJumps <<  std::endl;   
 
 
@@ -51,11 +51,11 @@ bool Solver::bt_futoshiki(Tablero *tablero, int fil, int col, int tam){
                         }
 
                         //LLAMADAS A LA RECURSIVIDAD
-                        if(col <=0){
-                            res =   bt_futoshiki(tablero, fil-1,tam-1,tam);
+                        if(col ==tam-1){
+                            res =   bt_futoshiki(tablero, fil+1,0,tam);
                         }
                         else{
-                            res=bt_futoshiki(tablero, fil,col-1,tam);
+                            res=bt_futoshiki(tablero, fil,col+1,tam);
                         }
 
                         //IMPORTANTE INDICAR QUE TERMINEMOS LA FUNCION SI YA HEMOS ENCONTRADO LA SOLUCION
@@ -93,11 +93,11 @@ bool Solver::bt_futoshiki(Tablero *tablero, int fil, int col, int tam){
             if(tablero->tableroCompleto()){
                 return true;
             }
-            if(col <=0){
-            res=    bt_futoshiki(tablero, fil-1,tam-1,tam);
+            if(col ==tam-1){
+            res=    bt_futoshiki(tablero, fil+1,0,tam);
             }
             else{
-            res=    bt_futoshiki(tablero, fil,col-1,tam);
+            res=    bt_futoshiki(tablero, fil,col+1,tam);
             }
         }
         else{
@@ -128,14 +128,14 @@ bool Solver::factible(Tablero *tablero, int fil, int col, int tam, int elem){
    }
    //CONDICIONES BINARIAS
    ///*
-   if(fil < tam-1){
-       if(tablero->comprobarBinariaSiguienteVertical(fil, col)){
+   if(fil >0 ){
+       if(tablero->comprobarBinariaSiguienteVertical(fil-1, col)){
 
            fac = false;
        }
    }
-   if(col < tam-1){
-       if(tablero->comprobarBinariaSiguienteHorizontal(fil, col)){
+   if(col > 0){
+       if(tablero->comprobarBinariaSiguienteHorizontal(fil, col-1)){
 
             fac = false;
 
@@ -284,7 +284,8 @@ void Solver::ejecutarAC3(Tablero *tablero)
     int col=num-1;
     backTrackingJumps = 0;
 
-    bt_futoshiki(tablero, fil, col, num);
+    //bt_futoshiki(tablero, 0, 0, num);
+
     dominio.imprimirDominio();
     std::cout << this->backTrackingJumps <<  std::endl;
     return;
@@ -435,7 +436,7 @@ void Solver::ejecutarFC(Tablero *tablero)
 
     int elem = 0;
     backTrackingJumps = 0;
-
+    ejecutarAC3(tablero);
     for(int i=0; i < tam; i++){
         for(int j=0; j < tam; j++){
             
@@ -585,7 +586,6 @@ bool Solver::forward(Tablero *tablero, int fil, int col, int tam, int valor, mat
 
             //Si el valor no esta en el dominio de la siguiente fila
             
-             dominio.imprimirDominio();
 
 
         }
