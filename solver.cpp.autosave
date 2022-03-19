@@ -771,8 +771,6 @@ void Solver::restaura(matdominios &podado, int fil, int col, int tam){
     for(int i = fil; i<tam; i++){
         for(int j = col; j < tam; j++){
             for(int k = 1 ; k <= tam; k++){
-                if(podado.enDominio(i,j, k)){
-                    podado.sacarDominio(i, j, k);
                     dominio.meterDominio(i, j, k);
                 }
             }
@@ -783,3 +781,5 @@ void Solver::restaura(matdominios &podado, int fil, int col, int tam){
 //    podado.imprimirDominio();
 
 }
+if(podado.enDominio(i,j, k)){
+    podado.sacarDominio(i, j, k);
