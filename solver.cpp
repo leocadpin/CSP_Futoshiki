@@ -164,28 +164,46 @@ bool Solver::factible(Tablero *tablero, int fil, int col, int tam, int elem){
    return fac;
 }
 
+//FUNCION DONDE SE RALIZARÁ LA EJECUCION DEL ALGORITMO AC3
 void Solver::ejecutarAC3(Tablero *tablero)
 {
-    //std::cout<<"AC3: "<<"Esta función no está todavía implementada."<<std::endl;
-    int num = tablero -> getSize();
+    //Declaramos una serie de variables que utilizaremos
+    int num = tablero -> getSize(); 
     int elem, centinela_dominio_dk = 0, aux_centinela=0, tam_kiwi;
-    //int contador=0;
-    //Arista arya, reserva;
-    Nodo mat[num][num];
-    Nodo arya_n1, arya_n2, reserva_n1, reserva_n2;
+    
+    //Matriz de nodos que representa el tablero
+    Nodo mat[num][num]; 
+    
+    //Nodos que se analizarán durante el algoritmo
+    Nodo arya_n1, arya_n2, reserva_n1, reserva_n2; //->Nodos de la arista principal y nodos de la arista descartada
+    
+    //Variable que controla si hemos cambiado el dominio de un nodo
     bool cambio = false;
+
+    //Colas de doble orientacion que usaremos para almacenar las aristas del tablero y las aristas
+    // que vayamos a descartar, para cuando haga falta volver a analizaralas
+
     deque< Arista > cola_aristas;
     deque< Arista > cola_descartes;
+
+    //Le damos al dominio el tamaño del tablero
     dominio.resize_matdominios(num);
 
 
-
+    //Este primer bucle doble elimina de los dominios de las casillas que se encuentran predefinidas en el tablero 
+    // todos los numeros menos el predefinido. Tambien saca el numero predefinido de los dominios de la misma fila o columna
     for(int i=0; i < num; i++){
         for(int j=0; j < num; j++){
             mat[i][j].setNodo(i, j);
             elem = tablero->getCasilla(i,j);
             if(elem != 0){
                 for(int k=1; k<=num; k++){
+                    if(k-1 != i){
+                        dominio.sacarDominio(k-1, j, elem);
+                    }
+                    if(k-1 != j){
+                        dominio.sacarDominio(i, k-1, elem);
+                    }
                     if(k==elem){
                         continue;
                     }
@@ -194,12 +212,17 @@ void Solver::ejecutarAC3(Tablero *tablero)
             }
       }
     }
+    
+    
 
-
-
+    //Ahora creamos las aristas del tablero
+    //Recorremos la matriz de nodos 
     for(int i=0; i < num; i++){
          for(int j=0; j < num; j++){
              
+            //Si no estamos en la ultima columna, creamos aristas del nodo actual con todos
+            //los nodos de la misma fila a partir de la columna de adelante (no lo hacemos con todos
+            //los de la misma fila porque si no estariamos creando aristas repetidas)
             if(j<num-1){
                 for(int l=j+1; l<num; l++){
                    Arista b = Arista( mat[i][j], mat[i][l]);
@@ -209,7 +232,7 @@ void Solver::ejecutarAC3(Tablero *tablero)
                 }
             }
 
-
+            //Aqui hacemos lo mismo, pero con las filas
             if(i<num-1){
                 for(int l=i+1; l<num; l++){
                    Arista b = Arista( mat[i][j], mat[l][j]);
@@ -221,72 +244,71 @@ void Solver::ejecutarAC3(Tablero *tablero)
         }
     }
 
-// ESQUEMA AC3 
+// ESQUEMA AC3: repetiremos el algoritmo hasta que no queden aristas por revisar
     while(!cola_aristas.empty()){
-        
+        //Tomamos la arista que haya al frente de la cola, y los nodos de esta
         Arista arya = cola_aristas.front();
-
-
         arya_n1 = arya.get_n1();
         arya_n2 = arya.get_n2();
-//        if((3 == arya_n1.get_x()) and (0 == arya_n1.get_y()) ){
-//            if((2 == arya_n2.get_x()) and (0 == arya_n2.get_y()) ){
-//            break;
-//            }
-//        }
-        cola_descartes.push_back(arya);
-        cola_aristas.pop_front();
+
+        cola_descartes.push_back(arya); //Metemos la arista en la cola de descartes por si hace falta revisarla luego
+
+        cola_aristas.pop_front();   //Sacamos la arista de la cola principal
 
         centinela_dominio_dk = 0;
         cambio=false;
-        for(int i=1; i <=num; i++ ){
 
+        //Para cada numero en el dominio del nodo n1 de nuestra arista hacemos lo siguiente
+        for(int i=1; i <=num; i++ ){
             if(dominio.enDominio(arya_n1.get_x(), arya_n1.get_y(), i )){
+                //Comprobamos si el valor es consistente con el nodo n2 de la arista
                 if(!consistente(tablero, i, arya_n1.get_x(), arya_n1.get_y(), arya_n2.get_x(), arya_n2.get_y())){
                     
+                    //Si no es consistente, sacamos el valor del dominio en la posicion del nodo n1
                     dominio.sacarDominio(arya_n1.get_x(), arya_n1.get_y(), i);
                     centinela_dominio_dk++ ;
-                    cambio =true;
+                    cambio =true; //Se ha dado un cambio en el dominio
 
                 }
             }
-            else{//SI i no esta en el dominio de  Vk 
-                centinela_dominio_dk++ ;
+            else{//Si el valor no esta en el dominio de  Vk, sumamos  +1 al centinela
+                centinela_dominio_dk++ ; //Nos sirve para ver si el dominio quedará vacio
                 continue;
-
             }
         }
-
+        //Si el dominio queda vacio, salimos sin solucion
         if(centinela_dominio_dk == num){
             std::cout << "Salimos sin solucion" << endl;
             return;
         }
         
+        //Si hemos realizado algun cambio en el dominio de una posicion, debemos revisar
+        // todas las aristas que apuntaban a ese nodo, para ello acudimos a la cola de descartes
         if(cambio){
 
             tam_kiwi = cola_descartes.size();
             aux_centinela=0;
+
+            //Revisamos todas las aristas de la cola descartes, pues a priori no sabemos cuales apuntan al nodo
+            // n1 de nuestra arista
             while(aux_centinela < tam_kiwi){
                 
-                // if((reserva.n2.get_x() == ari_centinela.n2.get_x()) and (reserva.n2.get_y() == ari_centinela.n2.get_y()) ){
-                //     if((reserva.n1.get_x() == ari_centinela.n1.get_x()) and (reserva.n1.get_y() == ari_centinela.n1.get_y())){
-                //         sentinela= true;
-                //     }
-                // }
-
-
-                Arista reserva = cola_descartes.front();
+                //Tomamos la arista de al frente de la cola de descartes y los nodos
+                Arista reserva = cola_descartes.front(); 
                 reserva_n1 = reserva.get_n1();
                 reserva_n2 = reserva.get_n2();
                 cola_descartes.pop_front();
 
-                if((reserva_n2.get_x() == arya_n1.get_x()) and (reserva_n2.get_y() == arya_n1.get_y()) ){
+                //Si las coordenadas de n2 de la cola descartes coinciden con las de n1 de la cola principal,
+                // siginifica que la arista descartada apunta a n1, asi que volvemos a meter la arista descartada
+                // en la principal
+                if((reserva_n2.get_x() == arya_n1.get_x()) and (reserva_n2.get_y() == arya_n1.get_y()) ){                    
                     cola_aristas.push_back(reserva);
                 }
-                else{
+                else{//Si no apunta a n1, volvemos a meter la arista en la cola de reservas
                     cola_descartes.push_back(reserva);
                 }
-                aux_centinela++; 
+                aux_centinela++; //Vamos aumentando esta varible hasta que se recorre toda la cola de descartes
             }
                 
         }
@@ -294,15 +316,9 @@ void Solver::ejecutarAC3(Tablero *tablero)
 
 
 
-    }
-
-
-    int fil=num-1;
-    int col=num-1;
+    }    
     backTrackingJumps = 0;
-
-    //bt_futoshiki(tablero, 0, 0, num);
-
+    bt_futoshiki(tablero, 0, 0, num);
     dominio.imprimirDominio();
     std::cout << this->backTrackingJumps <<  std::endl;
     return;
