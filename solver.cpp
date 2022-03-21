@@ -318,70 +318,76 @@ void Solver::ejecutarAC3(Tablero *tablero)
 
     }    
     backTrackingJumps = 0;
+    //Ahora que hemos acotado los dominios, usamos el backtracking para resolver el problema
     bt_futoshiki(tablero, 0, 0, num);
-    dominio.imprimirDominio();
+    //dominio.imprimirDominio();
     std::cout << this->backTrackingJumps <<  std::endl;
     return;
 }
 
+
+//FUNCION PARA COMPROBAR SI UN VALOR ES CONSISTENTE CON LA ARISTA A LA QUE APUNTA
 bool Solver::consistente(Tablero *tablero, int num_Vk, int x_n1, int y_n1, int x_n2, int y_n2){
     bool resultado=false;
-    float dist ;
+    //Variable que nos dara la distancia entre 2 nodos
+    float dist;
+
     int dist2, arriba=0, abajo=0, derecha=0,izquierda=0, tamta = tablero->getSize();
     dist =sqrt(((x_n2-x_n1)*(x_n2-x_n1)) + ((y_n2-y_n1)*(y_n2-y_n1)));
+
+    //Hacemos las comprobaciones para cada numero del dominio de n2
     for(int contando=1; contando <= tamta ; contando++  ){
         if(dominio.enDominio(x_n2, y_n2, contando)){
-            if(num_Vk==contando){
-                // if(){
-                continue;
-                // }
+
+            //Si el valor de n1 es igual al de n2, el resultdo seguira siendo falso, 
+            // y el valor de n2 no hace consistente al de n1
+            if(num_Vk==contando){                
+                continue;                
             }
 
-
+            //Realizaremos las comprobaciones de distancia si el numero esta a una distancia menor a 1
             if(dist<=1.0){
-                if(x_n1 < tamta-1){
 
-                    abajo = tablero->getElement(2*x_n1+1, y_n1*2);
-
-                }
-                if(x_n1 > 0){
-
-                    arriba = tablero->getElement(2*x_n1-1, y_n1*2);
-
-                }
-                if(y_n1 < tamta-1){
-
-                    derecha = tablero->getElement(x_n1*2, 2*y_n1+1);
-
-                }
-                if(y_n1 > 0){
-
-                    izquierda = tablero->getElement(2*x_n1, 2*y_n1-1);
-
-                }
-
+                //Si los valores se encuentran en la misma fila
                 if(x_n1 == x_n2){
+                    //Calculamos este valor restando las coordenadas en Y, para saber si el valor de n2
+                    //esta a la izquierda o a la derecha
                     dist2 = y_n2 - y_n1;
+
+                    //Si el resultado es 1, el val_n2 esta a la derecha
                     if(dist2 == 1){
+                        //Tomamos el valor que esta a la derecha, dependiendo de si es 1,-1 o 0. 
+                        if(y_n1 < tamta-1){
+                            derecha = tablero->getElement(x_n1*2, 2*y_n1+1);
+                        }
                         if(derecha==1){
+                            //Si el elemento es 1, representa un "<", por lo que para cumplir la restriccion
+                            //val_n1 debe ser menor que val_n2
                             if(num_Vk < contando){
                                 resultado=true;
                                 break;
                             }
                         }
                         if(derecha== -1){
+                            //Si el elemento es -1, representa un ">", por lo que para cumplir la restriccion
+                            //val_n1 debe ser mayor que val_n2
                             if(num_Vk > contando){
                                 resultado=true;
                                 break;
                             }
-                        }
+                        }                        
                         if(derecha== 0){
-                            
-                                resultado=true;
+                            //Si el elemento es 0, no hay restriccion de mayor o menor                            
+                            resultado=true;
                             break;
                         }
                     }
-                    else{ // dist==-1
+                    else{ //Si el resultado es -1, el val_n2 esta a la izquierda
+                        if(y_n1 > 0){//vemos si no estamos en la columna 0
+                            izquierda = tablero->getElement(2*x_n1, 2*y_n1-1);
+                        }
+
+                        //Seguimos el mismo tipo de esquema de comprobacion que hemos usado mas arriba
                         if(izquierda==1){
                             if(num_Vk > contando){
                                 resultado=true;
@@ -394,17 +400,21 @@ bool Solver::consistente(Tablero *tablero, int num_Vk, int x_n1, int y_n1, int x
                                 break;
                             }
                         }
-                        if(izquierda== 0){
-                            
-                                resultado=true;
+                        if(izquierda == 0){                            
+                            resultado=true;
                             break;
                         }
                     }
                 }
 
+                //En este caso los nodos se encuentran en la misma columna, y seguimos un esquema análogo 
+                // a las comprobaciones de las filas
                 if(y_n1 == y_n2){
                     dist2 = x_n2 - x_n1;
                     if(dist2 == -1){
+                        if(x_n1 > 0){
+                            arriba = tablero->getElement(2*x_n1-1, y_n1*2);
+                        }
                         if(arriba==1){
                             if(num_Vk > contando){
                                 resultado=true;
@@ -417,14 +427,15 @@ bool Solver::consistente(Tablero *tablero, int num_Vk, int x_n1, int y_n1, int x
                                 break;
                             }
                         }
-                        if(arriba== 0){
-                            
-                                resultado=true;
-                                break;
-                            
+                        if(arriba== 0){                            
+                            resultado=true;
+                            break;                            
                         }
                     }
                     else{ // dist==-1
+                        if(x_n1 < tamta-1){
+                            abajo = tablero->getElement(2*x_n1+1, y_n1*2);
+                        }
                         if(abajo==1){
                             if(num_Vk < contando){
                                 resultado=true;
@@ -437,42 +448,43 @@ bool Solver::consistente(Tablero *tablero, int num_Vk, int x_n1, int y_n1, int x
                                 break;
                             }
                         }
-                        if(abajo== 0){
-                            
-                                resultado=true;
-                                break;
+                        if(abajo== 0){                            
+                            resultado=true;
+                            break;
                         }
                     }
                 }
 
             }
-            else{
+            else{//Si la distancia es mayor a 1 y no son iguales, los valores son consistentes
                 resultado=true;
                 break;
             }
             
         }
-        else{
+        else{//Si no esta en el dominio seguimos comprobando
             continue;
         }
     }   
     return resultado;
 }
 
-void Solver::ejecutarFC(Tablero *tablero)
-{
 
-
+//FUNCION PARA EJECUTAR EL FORWARD CHECKING
+void Solver::ejecutarFC(Tablero *tablero){
     int tam = tablero -> getSize(); // tamaño del tablero
-    int fil=tam-1, col=tam-1;
+    
+    //Le damos al dominio el tamaño del tablero
     dominio.resize_matdominios(tam);
 
     int elem = 0;
     backTrackingJumps = 0;
-    ejecutarAC3(tablero);
+    //ejecutarAC3(tablero);
+    
+    //Este primer bucle doble elimina de los dominios de las casillas que se encuentran predefinidas en el tablero 
+    // todos los numeros menos el predefinido. Tambien saca el numero predefinido de los dominios de la misma fila o columna
     for(int i=0; i < tam; i++){
-        for(int j=0; j < tam; j++){
-            
+        for(int j=0; j < tam; j++){            
             elem = tablero->getCasilla(i,j);
             if(elem != 0){
                 for(int k=1; k<=tam; k++){
@@ -482,26 +494,25 @@ void Solver::ejecutarFC(Tablero *tablero)
                     if(k-1 != j){
                         dominio.sacarDominio(i, k-1, elem);
                     }
-
                     if(k==elem){
                         continue;
                     }
                     dominio.sacarDominio(i, j, k);
-
                 }
-
             }
-      }
+        }
     }
 
+    //Llamamos a la funcion recursiva de forward checking, empezaremos en la posicion 0,0
     fc_futoshiki(tablero, 0, 0, tam);
 
+
+    //Con este bucle rellenamos el tablero, una vez obtenida la solucion para los dominios con Forward Checking
     for(int i = 0; i<tam; i++){
         for(int j = 0; j<tam; j++){
             for(int k = 1; k<=tam; k++){
                 if(dominio.enDominio(i,j,k)){
-                    tablero->setCasilla(i,j,k);
-                
+                    tablero->setCasilla(i,j,k);                
                 }
             }
         }
@@ -510,22 +521,32 @@ void Solver::ejecutarFC(Tablero *tablero)
     return;
 }
 
+//FUNCION RECURSIVA DE FORWARD CHECKING
 bool Solver::fc_futoshiki(Tablero *tablero, int fil, int col, int tam){
+
     int xi;
+    //Definimos una matriz de podados para tener en cuenta los valores que saquemos del dominio,
+    // por si los debemos restaurar
     matdominios podado = matdominios(tam, 0);
     backTrackingJumps ++;
+    
+    //Realizamos las comprobaciones para cada valor posible del dominio en esa posicion
     for(int i = 1; i<= tam; i++){
         if(dominio.enDominio(fil, col, i)){
+           //Instanciamos el valor en esa posicion, (la funcion se describe mas adelante)
            xi= i;
            instanciar(podado, xi, fil, col, tam);
+           
+           //Caso base, cuando lleguemos a la ultima posicion (la 3,3), salimos
            if(fil == tam-1 and col==tam-1){
                return true;
            }
-           else{
+           else{//Si no, realizamos las comprobaciones
 
-               if(forward(tablero, fil, col, tam, xi, podado)){
+                //Si el valor cumple con la comprobacion de forward(), llamamos a la recursividad
+                if(forward(tablero, fil, col, tam, xi, podado)){
+                    
                     if(col==tam-1){
-
                         if(fc_futoshiki(tablero, fil+1, 0, tam)){
                             return true;
                         }
@@ -535,72 +556,59 @@ bool Solver::fc_futoshiki(Tablero *tablero, int fil, int col, int tam){
                             return true;
                         }
                     }    
-               }
+                }
 
-               restaura(podado, fil, col, tam);
-
-
-           }
-           if(i==tam){
+                //Si el valor no cumple con forward o las llamadas a la recursividad devuelven               
+                // falso, debemos restaurar el dominio
+                restaura(podado, fil, col, tam);
+            }
+            if(i==tam){//Si ningun valor sirve, devolvemos falso
                return false;
-           }
+            }
 
 
         }
-        else{
-            
+        else{//Si el valor no esta en el dominio seguimos con el siguente
             continue;
         }
     }
     return false;
 }
 
-//Funcion que realiza la comprobacion hacia adelante
-bool Solver::forward(Tablero *tablero, int fil, int col, int tam, int valor, matdominios &podado){
-    // Comprobamos los valores en el dominio de las filas siguientes
 
+//FUNCION QUE REALIZA LA COMPROBACION HACIA ADELANTE
+bool Solver::forward(Tablero *tablero, int fil, int col, int tam, int valor, matdominios &podado){
+    
+    // Comprobamos los valores en el dominio de las filas de adelante
     for(int fila_forward = fil+1; fila_forward < tam; fila_forward++){
-        bool vacio = true;
-        
+        bool vacio = true; 
         for(int k=1; k <= tam; k++){
             //Primero comprobamos hacia adelante con las filas
-            if(dominio.enDominio(fila_forward, col, k)){
-                
-                
-                
-
-
+            if(dominio.enDominio(fila_forward, col, k)){        
+                //Vemos si el valor es consistente con el dominio de la casilla de adelante                
                 if(consistente_fc(tablero, valor, fil, col, k, fila_forward, col)){
+                    //Si es consistente, entonces el dominio no estara vacio
                     vacio = false;
                 }
                 else{
-                    // el valor k no es consistente con la asignacion puesta 
+                    // el valor k no es consistente con la asignacion puesta, sacamos del dominio
+                    // el valor para la casilla de forward y lo añadimos a la matriz de podados 
                     if(tablero->getCasilla(fila_forward, col) == 0){
                         dominio.sacarDominio(fila_forward, col, k);
                         podado.meterDominio(fila_forward,col, k);
                     }
-               }
-
-
-
-            }
-            //Si el valor no esta en el dominio de la siguiente fila
-
-
-            
+                }
+            }            
         }
-        if(vacio){
+        if(vacio){//Si ningun valir fue consistente, devolvemos un resultado falso
             return false;
         }
-
-
     }
-    
+    //Realizamos el mismo proceso de comprobacion pero ahora para las columnas de adelante
     for(int columna_forward = col+1; columna_forward<tam; columna_forward ++){
         bool vacio2 = true;
         for (int k2 = 1; k2 <= tam; k2++)
-        {
-            
+        {            
             if(dominio.enDominio(fil, columna_forward, k2)){
                 if(consistente_fc(tablero, valor, fil, col, k2, fil, columna_forward)){
                     vacio2 = false;
@@ -612,164 +620,140 @@ bool Solver::forward(Tablero *tablero, int fil, int col, int tam, int valor, mat
                         podado.meterDominio(fil,columna_forward, k2);
                     }
                 }
-
-
-
             }
-
-            //Si el valor no esta en el dominio de la siguiente fila
-            
-
-
+            //Si el valor no esta en el dominio de la siguiente fila            
         }
         if(vacio2){
             return false;
-        }
-        
-
-
+        }        
     }
-
     return true;
 }
 
+//FUNCION DE COMPROBACION DE CONSISTENCIA DE FORWARD CHECKING
+//Su funcionamiento es el mismo que el de la de AC3, pero solo realiza la comprobacion para un valor de n2(el que comprobamos)
 bool Solver::consistente_fc(Tablero *tablero, int num_Vk, int x_n1, int y_n1, int contando, int x_n2, int y_n2){
     bool resultado=false;
     float dist ;
     int dist2, arriba=0, abajo=0, derecha=0,izquierda=0, tamta = tablero->getSize();
-    dist =sqrt(((x_n2-x_n1)*(x_n2-x_n1)) + ((y_n2-y_n1)*(y_n2-y_n1)));
-    
-        
-            if(num_Vk==contando){
-                
-                return false;
-                
-            }
-
-
-            if(dist<=1.0){
-                if(x_n1 < tamta-1){
-
-                    abajo = tablero->getElement(2*x_n1+1, y_n1*2);
-
-                }
-                if(x_n1 > 0){
-
-                    arriba = tablero->getElement(2*x_n1-1, y_n1*2);
-
-                }
+    dist =sqrt(((x_n2-x_n1)*(x_n2-x_n1)) + ((y_n2-y_n1)*(y_n2-y_n1)));            
+    if(num_Vk==contando){                
+        return false;                
+    }
+    if(dist<=1.0){                                                               
+        if(x_n1 == x_n2){
+            dist2 = y_n2 - y_n1;
+            if(dist2 == 1){
                 if(y_n1 < tamta-1){
-
                     derecha = tablero->getElement(x_n1*2, 2*y_n1+1);
-
                 }
+                if(derecha==1){
+                    if(num_Vk < contando){
+                        resultado=true;
+                        
+                    }
+                }
+                if(derecha== -1){
+                    if(num_Vk > contando){
+                        resultado=true;
+                        
+                    }
+                }
+                if(derecha== 0){
+                    
+                        resultado=true;
+                    
+                }
+            }
+            else{ // dist==-1
                 if(y_n1 > 0){
-
                     izquierda = tablero->getElement(2*x_n1, 2*y_n1-1);
-
-                }
-
-                if(x_n1 == x_n2){
-                    dist2 = y_n2 - y_n1;
-                    if(dist2 == 1){
-                        if(derecha==1){
-                            if(num_Vk < contando){
-                                resultado=true;
-                                
-                            }
-                        }
-                        if(derecha== -1){
-                            if(num_Vk > contando){
-                                resultado=true;
-                                
-                            }
-                        }
-                        if(derecha== 0){
-                            
-                                resultado=true;
-                            
-                        }
-                    }
-                    else{ // dist==-1
-                        if(izquierda==1){
-                            if(num_Vk > contando){
-                                resultado=true;
-                                
-                            }
-                        }
-                        if(izquierda== -1){
-                            if(num_Vk < contando){
-                                resultado=true;
-                                
-                            }
-                        }
-                        if(izquierda== 0){
-                            
-                                resultado=true;
-
-                        }
+                }   
+                if(izquierda==1){
+                    if(num_Vk > contando){
+                        resultado=true;
+                        
                     }
                 }
-
-                if(y_n1 == y_n2){
-                    dist2 = x_n2 - x_n1;
-                    if(dist2 == -1){
-                        if(arriba==1){
-                            if(num_Vk > contando){
-                                resultado=true;
-                                
-                            }
-                        }
-                        if(arriba== -1){
-                            if(num_Vk < contando){
-                                resultado=true;
-                                
-                            }
-                        }
-                        if(arriba== 0){
-                            
-                                resultado=true;
-                                
-                            
-                        }
-                    }
-                    else{ // dist==-1
-                        if(abajo==1){
-                            if(num_Vk < contando){
-                                resultado=true;
-                                
-                            }
-                        }
-                        if(abajo == -1){
-                            if(num_Vk > contando){
-                                resultado=true;
-                                
-                            }
-                        }
-                        if(abajo== 0){
-                            
-                                resultado=true;
-                                
-                        }
+                if(izquierda== -1){
+                    if(num_Vk < contando){
+                        resultado=true;
+                        
                     }
                 }
+                if(izquierda== 0){
+                    
+                        resultado=true;
 
+                }
             }
-            else{
-                resultado=true;
-                
+        }
+
+        if(y_n1 == y_n2){
+            dist2 = x_n2 - x_n1;
+            if(dist2 == -1){
+                if(x_n1 > 0){
+                    arriba = tablero->getElement(2*x_n1-1, y_n1*2); 
+                }
+                if(arriba==1){
+                    if(num_Vk > contando){
+                        resultado=true;
+                        
+                    }
+                }
+                if(arriba== -1){
+                    if(num_Vk < contando){
+                        resultado=true;
+                        
+                    }
+                }
+                if(arriba== 0){
+                    
+                        resultado=true;
+                        
+                    
+                }
             }
-            
+            else{ // dist==-1
+                if(x_n1 < tamta-1){
+                    abajo = tablero->getElement(2*x_n1+1, y_n1*2);
+                }
+                if(abajo==1){
+
+                    if(num_Vk < contando){
+                        resultado=true;
+                        
+                    }
+                }
+                if(abajo == -1){
+                    if(num_Vk > contando){
+                        resultado=true;
+                        
+                    }
+                }
+                if(abajo== 0){
+                    
+                        resultado=true;
+                        
+                }
+            }
+        }
+
+    }
+    else{
+        resultado=true;
         
-        
-        
-        
-    
+    }
     return resultado;
 }
 
+//FUNCION PARA INSTANCIAR UN VALOR A UNA POSICION DEL DOMINIO
 void Solver::instanciar(matdominios &podado, int xi, int fil, int col, int tam){
 
+    //Lo que hacemos es sacar del dominio de la posicion todos los valores menos el fijado
+    // y de lamisma fila y columna sacamos el valor
+
+    //Todo lo que saquemos del dominio, lo añadimos a la matriz de podados
     for(int k=1; k<=tam; k++){
         if(k-1 != fil){
             if(dominio.enDominio(k-1, col, xi)){
@@ -792,27 +776,20 @@ void Solver::instanciar(matdominios &podado, int xi, int fil, int col, int tam){
             podado.meterDominio(fil, col, k);
         }
     }
-//    std::cout << "PODAAAAA DEL " << xi << " en las casillas " << fil << " " << col << endl;
-//    podado.imprimirDominio();
-
 }
-
+//FUNCION PARA RESTAURAR EL DOMINIO CON LOS VALORES PODADOS POR LA INSTANCIANCION Y POR FORWARD
 void Solver::restaura(matdominios &podado, int fil, int col, int tam){
- 
-//    std::cout << "PODAAAAAaaaaaaaa en las casillas " << fil << " " << col << endl;
-//    podado.imprimirDominio();
+
+    //Recorremos toda la matriz en busca de los valores que fueron podados y los metemos de vuelta en el 
+    // dominio 
     for(int i = fil; i<tam; i++){
         for(int j = col; j < tam; j++){
             for(int k = 1 ; k <= tam; k++){
                 if(podado.enDominio(i,j, k)){
-                    podado.sacarDominio(i, j, k);
+                    podado.sacarDominio(i, j, k);//Los sacamos de los podados
                     dominio.meterDominio(i, j, k);
                 }
             }
         }
     }
-
-//    std::cout << "RESTAURACION en las casillas " << fil << " " << col << endl;
-//    podado.imprimirDominio();
-
 }
