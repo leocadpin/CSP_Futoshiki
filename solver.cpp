@@ -3,6 +3,9 @@
 #include "matdominios.cc"
 #include <deque>
 #include<math.h>
+
+//Esta variable global representa el dominio del tablero
+//como por defecto no sabemos su tamaño, primero la definimos con tamaño 1x1x1
 matdominios dominio = matdominios(1);
 
 
@@ -12,14 +15,20 @@ Solver::Solver(QObject *parent) : QObject(parent)
 }
 
 
+/*Funcion para ejecutar backtracking y llamar a la rescursividad
 
+
+
+*/
 void Solver::ejecutarBT(Tablero *tablero)
 {
     int tam = tablero -> getSize(); // tamaño del tablero
-    int fil=tam-1, col=tam-1;
-    dominio.resize_matdominios(tam);
-    backTrackingJumps = 0;
+    //int fil=tam-1, col=tam-1;
+    dominio.resize_matdominios(tam); // Le damos el tamaño necesario al dominio
+    //Ponemos la variable backtrackingjumps a 0 para contabilizar cuantas llamadas ha hecho la funcion
+    backTrackingJumps = 0;              
 
+    //Llamamos a la función recursiva que sigue el esquema backtracking. Empezaremos desde la casilla 0,0
     bt_futoshiki(tablero, 0, 0, tam);
     std::cout << this->backTrackingJumps <<  std::endl;   
 
@@ -27,17 +36,24 @@ void Solver::ejecutarBT(Tablero *tablero)
 }
 
 bool Solver::bt_futoshiki(Tablero *tablero, int fil, int col, int tam){
-    //caso base: si hemos rellenado todas las casillas
-    backTrackingJumps ++;
-    //std::cout << this->backTrackingJumps <<  std::endl;
-    bool res=false;
+    
+    backTrackingJumps ++; //Añadimos una llamada a la cuenta
+    bool res=false;    //Por defecto el resultado es falso
+
+    //CASO BASE, SI HEMOS RELLENADO TODO EL TABLERO ASUMIMOS QUE EL RESULTADO ES CORRECTO
+    if(tablero->tableroCompleto() ){
+        return true;
+    }
+
+
+    
 
     //REVISAMOS SI LA CASILLA ESTA OCUPADA O NO PARA VER SI TENDREMOS QUE MODIFICARLA
     int elem = tablero->getCasilla(fil,col);
 
-    //
+    //SI EL VALOR EN LA CASILLA ES 0, PROCEDEMOS A HACER EL ANALISIS
     if(elem == 0){
-        for(int l=1; l<=tam ; l++){
+        for(int l=1; l<=tam ; l++){//Probamos con los numeros que pueden ir en la casilla (1 a N)
 
             if(dominio.enDominio(fil, col, l )){
                     if(factible(tablero, fil, col, tam, l)){
@@ -45,10 +61,7 @@ bool Solver::bt_futoshiki(Tablero *tablero, int fil, int col, int tam){
 
                         //ESTE ES NUESTRO CASO BASE: CUANDO LLEGAMOS A COMPLETAR EL
                         //TABLERO TENDREMOS LA SOLUCION
-                        if(tablero->tableroCompleto() ){
-
-                            return res=true;
-                        }
+                     }
 
                         //LLAMADAS A LA RECURSIVIDAD
                         if(col ==tam-1){
@@ -85,14 +98,12 @@ bool Solver::bt_futoshiki(Tablero *tablero, int fil, int col, int tam){
             }
         }
     }
-    else{
+    else{//EN ESTE CASO LA CASILLA ES !=0
         //AUNQUE NO LO PODEMOS MODIFICAR, DEBEMOS COMPROBAR SI LA
         // CUMPLE RESTRICCIONES PARA EVITAR ERRORES EN LA SOLUCION YSI SE DA EL CASO DESCARTAR
         if(factible(tablero, fil, col, tam, elem)){
             tablero->setCasilla(fil, col, elem);
-            if(tablero->tableroCompleto()){
-                return true;
-            }
+           
             if(col ==tam-1){
             res=    bt_futoshiki(tablero, fil+1,0,tam);
             }
