@@ -54,46 +54,45 @@ bool Solver::bt_futoshiki(Tablero *tablero, int fil, int col, int tam){
     //SI EL VALOR EN LA CASILLA ES 0, PROCEDEMOS A HACER EL ANALISIS
     if(elem == 0){
         for(int l=1; l<=tam ; l++){//Probamos con los numeros que pueden ir en la casilla (1 a N)
-
+            
+            //Primero comprobamos si el numero esta en el dominio. Esto será relevante tras AC3
+            // en el esquema backtracking, todos los dominios estan disponibles
             if(dominio.enDominio(fil, col, l )){
-                    if(factible(tablero, fil, col, tam, l)){
-                        tablero->setCasilla(fil, col, l);
+                //Ahora comprobamos si el poner el numero en la casilla es factible
+                // la funcion factible se encuenr desglosasda mas adelante
+                if(factible(tablero, fil, col, tam, l)){
+                    tablero->setCasilla(fil, col, l); //Como es factible, seteamos la casilla
 
-                        //ESTE ES NUESTRO CASO BASE: CUANDO LLEGAMOS A COMPLETAR EL
-                        //TABLERO TENDREMOS LA SOLUCION
-                     }
+                
 
-                        //LLAMADAS A LA RECURSIVIDAD
-                        if(col ==tam-1){
-                            res =   bt_futoshiki(tablero, fil+1,0,tam);
-                        }
-                        else{
-                            res=bt_futoshiki(tablero, fil,col+1,tam);
-                        }
-
-                        //IMPORTANTE INDICAR QUE TERMINEMOS LA FUNCION SI YA HEMOS ENCONTRADO LA SOLUCION
-                        if(res==true){
-                            return true;
-                        }
-
-                        //SI HEMOS PROBADO TODOS LOS CASOS DEVOLVEMOS FALSE Y LLENAMOS CON 0 LA CASILLA
-                        if(l==tam){
-                            tablero->setCasilla(fil, col, 0);
-                            return false;
-                        }
+                    //LLAMADAS A LA RECURSIVIDAD
+                    if(col ==tam-1){//Si hemos llegado a la ultima columna, iremos a la siguiente fila y la columna 0
+                        res =   bt_futoshiki(tablero, fil+1,0,tam);
                     }
-                    else{
-                        if(l==tam){
-                            return false;
-                        }
+                    else{//Si no, nos mantenemos en la fila pero vaos a la siguiente columna
+                        res=bt_futoshiki(tablero, fil,col+1,tam);
                     }
+
+                    //IMPORTANTE INDICAR QUE TERMINEMOS LA FUNCION SI YA HEMOS ENCONTRADO LA SOLUCION
+                    if(res==true){
+                        return true;
+                    }
+
+                    //SI HEMOS PROBADO TODOS LOS CASOS DEVOLVEMOS FALSE Y LLENAMOS CON 0 LA CASILLA
+                    if(l==tam){
+                        tablero->setCasilla(fil, col, 0);
+                        return false;
+                    }
+                }
+                else{//Si no es factible poner el numero en la casilla no hacemos nada, y si hemos llegado al ultimo
+                    //numero, devolvemos falso
+                    if(l==tam){
+                        return false;
+                    }
+                }
 
             }
-            else {
-                if(l==tam){
-                    tablero->setCasilla(fil, col, 0);
-
-                }
+            else{//Si nuestro numero está fuera del dominio, pasamos al siguiente
                continue;
             }
         }
@@ -101,6 +100,8 @@ bool Solver::bt_futoshiki(Tablero *tablero, int fil, int col, int tam){
     else{//EN ESTE CASO LA CASILLA ES !=0
         //AUNQUE NO LO PODEMOS MODIFICAR, DEBEMOS COMPROBAR SI LA
         // CUMPLE RESTRICCIONES PARA EVITAR ERRORES EN LA SOLUCION YSI SE DA EL CASO DESCARTAR
+        
+        //Si el numero predefinido es factible, lo dejamos y seguimos con la recursividad
         if(factible(tablero, fil, col, tam, elem)){
             tablero->setCasilla(fil, col, elem);
            
@@ -111,8 +112,8 @@ bool Solver::bt_futoshiki(Tablero *tablero, int fil, int col, int tam){
             res=    bt_futoshiki(tablero, fil,col+1,tam);
             }
         }
-        else{
-            tablero->setCasilla(fil, col, elem);
+        else{//Si no, devolvemos falso, pues no podemos probar mas numeros para esta casilla
+            
 
             return false;
         }
@@ -125,36 +126,41 @@ bool Solver::bt_futoshiki(Tablero *tablero, int fil, int col, int tam){
 
 }
 
+
+//FUNCION QUE COMPRUEBA SI PONER UN NUMERO EN UNA POSICION ES FACTIBLE
 bool Solver::factible(Tablero *tablero, int fil, int col, int tam, int elem){
 
    bool fac = true;
 
-   //SE REPITE?
+   //Metemos el numero en la casilla
    tablero->setCasilla(fil, col, elem);
 
-   if((tablero->estaEnFila(fil,col)) || (tablero->estaEnCol(fil,col))  ){
+    //Si el numero ya esta en la fila o en la columna, no sera factible
+    if((tablero->estaEnFila(fil,col)) || (tablero->estaEnCol(fil,col))  ){
+        fac = false;
+    }
 
-
-       fac = false;
-   }
-   //CONDICIONES BINARIAS
-   ///*
-   if(fil >0 ){
+   //CONDICIONES BINARIAS: comprobaremos las rstricciones con respecto a las casillas de arriba y a la izquierda
+   // porque, al recorrer el tablero hacia la derecha y hacia abajo,si comparasemos con los numeros de nuestraderecha y abajo
+   //siempre veriamos 0, que no nos llevaria a la solucion adecuada
+   
+   if(fil >0 ){//Si no estamos en la columna 0
+        //Si el numero no cumple la restriccion de casilla con la posicion que esta encima de ella, no será factible
        if(tablero->comprobarBinariaSiguienteVertical(fil-1, col)){
-
            fac = false;
        }
    }
    if(col > 0){
-       if(tablero->comprobarBinariaSiguienteHorizontal(fil, col-1)){
-
+       //Si el numero no cumple la restriccion de casilla con la posicion que esta a la izquierda de ella, no será factible
+        if(tablero->comprobarBinariaSiguienteHorizontal(fil, col-1)){
             fac = false;
+        }    
+    }
 
-       }
-   }//*/
-
-
+    //Seteamos la casilla a 0, ya que el objetivo de esta funcion es unicamente decir si 
+    // el numero es factible o no, pero su uso no debe modificar parametros del tablero con respecto a otras funciones
     tablero->setCasilla(fil, col, 0);
+  
    return fac;
 }
 
