@@ -2,8 +2,10 @@
 
 \usepackage{amsmath}
 
-\usepackage{graphicx}
-
+\usepackage{eso-pic}
+\usepackage{lipsum}
+\usepackage{transparent}
+\usepackage{parskip}
 
 
 \usepackage[utf8]{inputenc}
@@ -27,7 +29,23 @@ Leopoldo Cadavid Piñeroooooooo
 \date{Febrero 2022}
 
 
+%%%%%%%%% ESTO PARA LA MARCA DE AGUA %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+
+\AddToShipoutPicture{ 
+    \put(410,380){
+        \parbox[b][\paperheight]{\paperwidth}{%
+            \vfill
+            \
+            {
+            \transparent{1}
+            \includegraphics[scale=0.1]{juan.jpg}
+            \vfill
+            }
+        }
+    }
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 
@@ -75,8 +93,11 @@ siguientes:\\
 % \end{figure}
 
 Entrando más en detalle con el funcionamiento de la función bt\_futoshiki(),
-lo que se hace en el código es recorrer el tablero empezando por la esquina 
-inferior y para cada posición se comprueban los números de 1 a N 
+lo que se hace en el código es recorrer el tablero empezando por la superior 
+izquierda y para cada posición se comprueban los números de 1 a N. Si el número es factible en esa posición,
+entonces llamaremos a la recursividad para seguir comprobando. Si no es factible, comprobamos el siguiente valor posible.
+
+
 
 
 \subsection{Lista de nodos vivos}
