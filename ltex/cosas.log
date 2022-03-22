@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2022.2.18)  22 MAR 2022 19:39
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2022.2.18)  22 MAR 2022 21:17
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -354,29 +354,34 @@ File: images/logo-ua.png Graphic file (type png)
 Package pdftex.def Info: images/logo-ua.png  used on input line 140.
 (pdftex.def)             Requested size: 150.56212pt x 150.56212pt.
  [4]
-<images/cola_de_prior.png, id=79, 565.11125pt x 49.18375pt>
-File: images/cola_de_prior.png Graphic file (type png)
-<use images/cola_de_prior.png>
-Package pdftex.def Info: images/cola_de_prior.png  used on input line 168.
-(pdftex.def)             Requested size: 282.55493pt x 24.5918pt.
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 176.
 File: images/logo-ua.png Graphic file (type png)
 <use images/logo-ua.png>
-Package pdftex.def Info: images/logo-ua.png  used on input line 176.
+Package pdftex.def Info: images/logo-ua.png  used on input line 178.
 (pdftex.def)             Requested size: 150.56212pt x 150.56212pt.
- [5pdfTeX warning (ext4): destination with the same identifier (name{figure.1}) has been already used, duplicate ignored
+ [5]
+<images/cola_de_prior.png, id=83, 565.11125pt x 49.18375pt>
+File: images/cola_de_prior.png Graphic file (type png)
+<use images/cola_de_prior.png>
+Package pdftex.def Info: images/cola_de_prior.png  used on input line 198.
+(pdftex.def)             Requested size: 282.55493pt x 24.5918pt.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 206.
+File: images/logo-ua.png Graphic file (type png)
+<use images/logo-ua.png>
+Package pdftex.def Info: images/logo-ua.png  used on input line 206.
+(pdftex.def)             Requested size: 150.56212pt x 150.56212pt.
+ [6pdfTeX warning (ext4): destination with the same identifier (name{figure.1}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.176 \end{document}
+l.206 \end{document}
                      </home/leo/Escritorio/sis_intel/Futoshiki/CSP_Futoshiki/ltex/images/cola_de_prior.png>]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 176.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 206.
  (/home/leo/Escritorio/sis_intel/Futoshiki/CSP_Futoshiki/ltex/cosas.aux
 LaTeX Info: Redefining \. on input line 26.
 LaTeX Info: Redefining \% on input line 26.
 )
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 176.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 176.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 206.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 206.
 Package rerunfilecheck Info: File `cosas.out' has not changed.
 (rerunfilecheck)             Checksum: 9C2BE2423F106230082CB4699EF9966D;689.
 
@@ -385,18 +390,18 @@ LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 8343 strings out of 481239
- 129998 string characters out of 5920377
+ 8346 strings out of 481239
+ 130034 string characters out of 5920377
  506638 words of memory out of 5000000
- 23439 multiletter control sequences out of 15000+600000
+ 23441 multiletter control sequences out of 15000+600000
  539147 words of font info for 48 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 36i,14n,41p,852b,406s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 36i,14n,41p,852b,407s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on /home/leo/Escritorio/sis_intel/Futoshiki/CSP_Futoshiki/ltex/cosas.pdf (5 pages, 83196 bytes).
+Output written on /home/leo/Escritorio/sis_intel/Futoshiki/CSP_Futoshiki/ltex/cosas.pdf (6 pages, 86823 bytes).
 PDF statistics:
- 110 PDF objects out of 1000 (max. 8388607)
- 93 compressed objects within 1 object stream
- 18 named destinations out of 1000 (max. 500000)
+ 115 PDF objects out of 1000 (max. 8388607)
+ 97 compressed objects within 1 object stream
+ 19 named destinations out of 1000 (max. 500000)
  91 words of extra memory for PDF output out of 10000 (max. 10000000)
 

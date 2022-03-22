@@ -27,9 +27,14 @@ void Solver::ejecutarBT(Tablero *tablero)
     dominio.resize_matdominios(tam); // Le damos el tamaño necesario al dominio
     //Ponemos la variable backtrackingjumps a 0 para contabilizar cuantas llamadas ha hecho la funcion
     backTrackingJumps = 0;              
+    unsigned t0, t1;
 
+        t0 = clock();
     //Llamamos a la función recursiva que sigue el esquema backtracking. Empezaremos desde la casilla 0,0
     bt_futoshiki(tablero, 0, 0, tam);
+    t1 = clock();
+        double time = (double(t1-t0)/CLOCKS_PER_SEC);
+    std::cout << "El tiempor:" << time <<  std::endl;
     std::cout << this->backTrackingJumps <<  std::endl;   
 
 
@@ -171,6 +176,9 @@ bool Solver::factible(Tablero *tablero, int fil, int col, int tam, int elem){
 //FUNCION DONDE SE RALIZARÁ LA EJECUCION DEL ALGORITMO AC3
 void Solver::ejecutarAC3(Tablero *tablero)
 {
+    unsigned t0, t1;
+
+        t0 = clock();
     //Declaramos una serie de variables que utilizaremos
     int num = tablero -> getSize(); 
     int elem, centinela_dominio_dk = 0, aux_centinela=0, tam_kiwi;
@@ -326,6 +334,9 @@ void Solver::ejecutarAC3(Tablero *tablero)
     bt_futoshiki(tablero, 0, 0, num);
     dominio.imprimirDominio();
     std::cout << this->backTrackingJumps <<  std::endl;
+    t1 = clock();
+        double time = (double(t1-t0)/CLOCKS_PER_SEC);
+    std::cout << "El tiempor:" << time <<  std::endl;
     return;
 }
 

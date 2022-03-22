@@ -146,7 +146,7 @@ Durante la implementación del algoritmo se dieron algunos problemas, que consig
 Para la implementación de este algoritmo, con el fin de seguir la estructura aprendida en clase, se implementaron 
 nuevas clases al proyecto, además de añadir nuevos métodos y estructuras.
 
-Primero veamos las clases creadas:
+Primero veamos las \textbf{clases} creadas:
 
 \begin{itemize}
     \item \textbf{Clase nodo:} representa la estructura de datos de un nodo. Se compone de dos enteros que son
@@ -156,10 +156,40 @@ Primero veamos las clases creadas:
     
     \item \textbf{Clase matdominios:} representa el dominio de las casillas del tablero. Se compone de una matriz de 3 dimensiones, 
     donde la primera y segunda serán la fila y columna del tablero. La tercera dimensión representa los números que pueden estar en 
-    esa posición, 
+    esa posición. El valor en sí de la casilla [X][Y][Z] es \textit{"1"} o \textit{"0"} para indicar si el valor está o no en el dominio de esa casilla.
+    En el código, se definirá como una \textbf{variable global}.
 \end{itemize}
 
+Ahora hablaremos de las \textbf{funciones} y \textbf{métodos} más importantes:
+
+\begin{itemize}
+    \item \verb|ejecutarAC3():| función base dada en la práctica, en ella se arregla el dominio
+        del tablero siguiendo el esquema AC3.
+    \item \verb|consistente():| en esta función se analiza la consistencia para un valor del nodo A
+    con respecto a los valores del nodo B. Devolverá \textit{true} si hay algún valor del nodo que hace consistente al nodo A.
+    
+    \item \verb|enDominio():| método de la clase \textbf{matdominio} que analiza si un número se encuentra dentro del dominio
+    de una casilla. Debemos especificar la fila, columna y valor a comprobar.
+
+    \item \verb|sacarDominio:| método de la clase \textbf{matdominio} donde sacamos un valor dado del dominio de 
+    la casilla (fila, columna) que le indiquemos.
+    \item \verb|meterDominio:| método de la clase \textbf{matdominio} donde metemos un valor dado en el dominio de 
+    la casilla (fila, columna) que le indiquemos.
+
+    \item \verb|imprimirDominio():| método de la clase \textbf{matdominio} donde imprimimos por pantalla el dominio de la matriz de 
+    dominios.
+    
+    \item También se utilizan los constructores, getters y setters de las clases.
+
+\end{itemize}
+
+Entrando en detalle con el funcionamiento del algoritmo, 
+
+
+
+\verb||
 \textbf{}
+\textit{}
 
 \subsubsection{Problemas durante la implementación}
 \subsection{Foward Checking}
