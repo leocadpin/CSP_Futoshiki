@@ -93,6 +93,10 @@ bool Solver::bt_futoshiki(Tablero *tablero, int fil, int col, int tam){
 
             }
             else{//Si nuestro numero está fuera del dominio, pasamos al siguiente
+               if(l==tam){
+                    tablero->setCasilla(fil, col, 0);
+
+                }
                continue;
             }
         }
@@ -114,7 +118,7 @@ bool Solver::bt_futoshiki(Tablero *tablero, int fil, int col, int tam){
         }
         else{//Si no, devolvemos falso, pues no podemos probar mas numeros para esta casilla
             
-
+            tablero->setCasilla(fil, col, elem);
             return false;
         }
 
@@ -198,12 +202,12 @@ void Solver::ejecutarAC3(Tablero *tablero)
             elem = tablero->getCasilla(i,j);
             if(elem != 0){
                 for(int k=1; k<=num; k++){
-                    if(k-1 != i){
-                        dominio.sacarDominio(k-1, j, elem);
-                    }
-                    if(k-1 != j){
-                        dominio.sacarDominio(i, k-1, elem);
-                    }
+                    // if(k-1 != i){
+                    //     dominio.sacarDominio(k-1, j, elem);
+                    // }
+                    // if(k-1 != j){
+                    //     dominio.sacarDominio(i, k-1, elem);
+                    // }
                     if(k==elem){
                         continue;
                     }
@@ -320,7 +324,7 @@ void Solver::ejecutarAC3(Tablero *tablero)
     backTrackingJumps = 0;
     //Ahora que hemos acotado los dominios, usamos el backtracking para resolver el problema
     bt_futoshiki(tablero, 0, 0, num);
-    //dominio.imprimirDominio();
+    dominio.imprimirDominio();
     std::cout << this->backTrackingJumps <<  std::endl;
     return;
 }
@@ -348,6 +352,27 @@ bool Solver::consistente(Tablero *tablero, int num_Vk, int x_n1, int y_n1, int x
             //Realizaremos las comprobaciones de distancia si el numero esta a una distancia menor a 1
             if(dist<=1.0){
 
+                        if(x_n1 < tamta-1){
+
+                    abajo = tablero->getElement(2*x_n1+1, y_n1*2);
+
+                }
+                if(x_n1 > 0){
+
+                    arriba = tablero->getElement(2*x_n1-1, y_n1*2);
+
+                }
+                if(y_n1 < tamta-1){
+
+                    derecha = tablero->getElement(x_n1*2, 2*y_n1+1);
+
+                }
+                if(y_n1 > 0){
+
+                    izquierda = tablero->getElement(2*x_n1, 2*y_n1-1);
+
+                }
+
                 //Si los valores se encuentran en la misma fila
                 if(x_n1 == x_n2){
                     //Calculamos este valor restando las coordenadas en Y, para saber si el valor de n2
@@ -356,10 +381,10 @@ bool Solver::consistente(Tablero *tablero, int num_Vk, int x_n1, int y_n1, int x
 
                     //Si el resultado es 1, el val_n2 esta a la derecha
                     if(dist2 == 1){
-                        //Tomamos el valor que esta a la derecha, dependiendo de si es 1,-1 o 0. 
-                        if(y_n1 < tamta-1){
-                            derecha = tablero->getElement(x_n1*2, 2*y_n1+1);
-                        }
+//                        //Tomamos el valor que esta a la derecha, dependiendo de si es 1,-1 o 0.
+//                        if(y_n1 < tamta-1){
+//                            derecha = tablero->getElement(x_n1*2, 2*y_n1+1);
+//                        }
                         if(derecha==1){
                             //Si el elemento es 1, representa un "<", por lo que para cumplir la restriccion
                             //val_n1 debe ser menor que val_n2
@@ -383,9 +408,9 @@ bool Solver::consistente(Tablero *tablero, int num_Vk, int x_n1, int y_n1, int x
                         }
                     }
                     else{ //Si el resultado es -1, el val_n2 esta a la izquierda
-                        if(y_n1 > 0){//vemos si no estamos en la columna 0
-                            izquierda = tablero->getElement(2*x_n1, 2*y_n1-1);
-                        }
+//                        if(y_n1 > 0){//vemos si no estamos en la columna 0
+//                            izquierda = tablero->getElement(2*x_n1, 2*y_n1-1);
+//                        }
 
                         //Seguimos el mismo tipo de esquema de comprobacion que hemos usado mas arriba
                         if(izquierda==1){
@@ -412,9 +437,9 @@ bool Solver::consistente(Tablero *tablero, int num_Vk, int x_n1, int y_n1, int x
                 if(y_n1 == y_n2){
                     dist2 = x_n2 - x_n1;
                     if(dist2 == -1){
-                        if(x_n1 > 0){
-                            arriba = tablero->getElement(2*x_n1-1, y_n1*2);
-                        }
+//                        if(x_n1 > 0){
+//                            arriba = tablero->getElement(2*x_n1-1, y_n1*2);
+//                        }
                         if(arriba==1){
                             if(num_Vk > contando){
                                 resultado=true;
@@ -433,9 +458,9 @@ bool Solver::consistente(Tablero *tablero, int num_Vk, int x_n1, int y_n1, int x
                         }
                     }
                     else{ // dist==-1
-                        if(x_n1 < tamta-1){
-                            abajo = tablero->getElement(2*x_n1+1, y_n1*2);
-                        }
+//                        if(x_n1 < tamta-1){
+//                            abajo = tablero->getElement(2*x_n1+1, y_n1*2);
+//                        }
                         if(abajo==1){
                             if(num_Vk < contando){
                                 resultado=true;
@@ -505,7 +530,7 @@ void Solver::ejecutarFC(Tablero *tablero){
 
     //Llamamos a la funcion recursiva de forward checking, empezaremos en la posicion 0,0
     fc_futoshiki(tablero, 0, 0, tam);
-
+    dominio.imprimirDominio();
 
     //Con este bucle rellenamos el tablero, una vez obtenida la solucion para los dominios con Forward Checking
     for(int i = 0; i<tam; i++){
@@ -747,7 +772,7 @@ bool Solver::consistente_fc(Tablero *tablero, int num_Vk, int x_n1, int y_n1, in
     return resultado;
 }
 
-//FUNCION PARA INSTANCIAR UN VALOR A UNA POSICION DEL DOMINIO
+//FUNCION PARA INSTANCIAR UN VALOR A UNA POSICIÓN DEL DOMINIO
 void Solver::instanciar(matdominios &podado, int xi, int fil, int col, int tam){
 
     //Lo que hacemos es sacar del dominio de la posicion todos los valores menos el fijado
@@ -777,7 +802,7 @@ void Solver::instanciar(matdominios &podado, int xi, int fil, int col, int tam){
         }
     }
 }
-//FUNCION PARA RESTAURAR EL DOMINIO CON LOS VALORES PODADOS POR LA INSTANCIANCION Y POR FORWARD
+//FUNCION PARA RESTAURAR EL DOMINIO CON LOS VALORES PODADOS POR LA INSTANCIANCIÓN Y POR FORWARD
 void Solver::restaura(matdominios &podado, int fil, int col, int tam){
 
     //Recorremos toda la matriz en busca de los valores que fueron podados y los metemos de vuelta en el 
