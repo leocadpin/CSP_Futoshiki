@@ -2,6 +2,8 @@
 #define _ARISTA_
 #include "nodo.cc"
 
+//CLASE ARISTA, REPRESENTA LA ESTRUCTURA DE DATOS DE UNA ARISTA
+// (dos nodos)
 class Arista
 {
 private:

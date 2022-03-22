@@ -3,6 +3,7 @@
 
 using namespace std;
 
+//Constructor, metemos dos nodos en la arista
 Arista::Arista(Nodo a, Nodo b){
 
     n1 = Nodo(a.get_x() , a.get_y());
@@ -14,6 +15,7 @@ Arista::Arista(Nodo a, Nodo b){
 Arista::~Arista(){
     
 }
+
 
 void Arista::imprimirArista(){
 

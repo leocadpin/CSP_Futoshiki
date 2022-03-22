@@ -2,6 +2,7 @@
 #include <iostream>
 using namespace std;
 
+//Constructor de la clase dominio, le pasamos el tamaño y crea la matriz de  N x N x N
 matdominios::matdominios(int tam){
 
     ancho = tam;
@@ -38,7 +39,8 @@ matdominios::matdominios(int tam){
 
 }
 
-
+//Sobrecarga delconstructor de la clase dominio, le pasamos el tamaño y crea la matriz de  N x N x N
+//tambien le pasamos un valor con el que rellenar la matriz de dominios
 matdominios::matdominios(int tam, int valor){
 
     ancho = tam;
@@ -75,6 +77,7 @@ matdominios::matdominios(int tam, int valor){
 
 }
 
+//Función para cambiar el tamaño de la matriz
 void matdominios::resize_matdominios(int tam){
     // Deallocate memory
     for (int i = 0; i < alto; i++) {
@@ -117,7 +120,7 @@ void matdominios::resize_matdominios(int tam){
         }
     }
 }
-
+//Destructor de la clase
 matdominios::~matdominios(){
 
     // Deallocate memory
@@ -131,23 +134,25 @@ matdominios::~matdominios(){
 
 }
 
+//Función que comprueba si un numero esta en el dominio
 bool matdominios::enDominio(int fil, int col, int num){
     bool endominio = true;
     num = num - 1;
-    if(matriz[fil][col][num] == 0){
+    if(matriz[fil][col][num] == 0){//Si el valor en la tercera dimension de la matriz es 0, el numero no esta en el dominio
         endominio = false;
     }
 
     return endominio;
 }
+//Funcion que saca un numero del dominio (lo pone a 0)
 void matdominios::sacarDominio(int fil, int col, int num){
-
+    
     num = num - 1;
     matriz[fil][col][num] = 0;
     
 
 }
-
+//Funcion que mete un numero del dominio (lo pone a 1)
 void matdominios::meterDominio(int fil, int col, int num){
 
     num = num - 1;
@@ -155,6 +160,7 @@ void matdominios::meterDominio(int fil, int col, int num){
 
 }
 
+//Funcion que enseña por pantalla el dominio
 void matdominios::imprimirDominio(){
     int tm = ancho;
 
