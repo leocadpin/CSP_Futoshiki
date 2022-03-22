@@ -183,9 +183,51 @@ Ahora hablaremos de las \textbf{funciones} y \textbf{métodos} más importantes:
 
 \end{itemize}
 
-Entrando en detalle con el funcionamiento del algoritmo, 
+En cuanto a \textbf{estructuras de datos} usadas, destacamos las siguientes:
 
+\begin{itemize}
+    \item \textbf{Nodo:} punto con coordenadas X e Y. 
+    \item \textbf{Arista:} conexión entre dos nodos.
+    
+    \item \textbf{Matriz de dominios:} para saber que valores son accesibles para una casilla del tablero.
+    \item \textbf{Colas de doble frente:} Las utilizaremos para guardar todas las aristas del tablero, y poder 
+        ir haciendo el análisis en el algoritmo arista a arista. También utilizaremos otra para guardar aristas descartadas.
+\end{itemize}
 
+Entrando en detalle con el funcionamiento del algoritmo, lo primero que haremos será sacar del dominio todos los valores de casillas
+prefijadas (dejándo también solo esos valores en el dominio de su casilla). Tras esto crearemos una matriz de nodos con todos los nodos
+del tablero, y con ella iremos creando todas las aristas necesarias. Serán dos aristas (para cada direción) por cada par de nodos que 
+estén en la misma fila o columna. Todas las aristas creadas se meten dentro de una cola.
+
+Ahora, mientras la cola de descartes no quede vacía (haber analizado todas las aristas). Repetiremos el siguiente proceso:
+
+\begin{itemize}
+    \item Sacamos una arista del frente de la cola.
+    \item De 1 a N comprobaremos si los valores están en el dominio del nodo A.
+    \item Si esta en el dominio, comprobaremos si el valor es consistente con el nodo B, usando \verb|consistente()|.
+    \item Si \textbf{no} es consistente, sacaremos el valor del dominio del nodo A, usando \verb|sacarDominio()|. 
+    \item En caso de haber cambiado el dominio, debemos comprobar las aristas que se 
+        han analizado previamente que apunten al nodo \textbf{A} actual. Esto lo haremos recurriendo 
+        a una cola de descartes, donde se encuentran todas las aristas analizadas previamente.
+    \item Si se queda vacío el dominio de un nodo, entonces no hay solución y salimos con false de la función.
+\end{itemize}
+
+Ahora comentaremos la función \verb|consistente()|, que es muy importante en cuanto a la resolución del algoritmo.
+
+Esta función recibe un valor del nodo A y comprueba, para todos los valores del nodo B, las siguientes restricciones:
+
+\begin{itemize}
+\item Que no sean iguales.
+\item En caso de que la distancia entre nodos sea 1, usamos la función \verb|getElement()|. 
+    para ver la posición entre nodos y si hay una restricción. En este caso, comprobaremos si los valores cumplen esta restricción
+    (de haberla).
+\item Solo necesitamos que un valor cumpla con las restricciones para que la función devuelva \textit{true}.
+\end{itemize}
+
+Tras hacer los arreglos en el dominio con AC3, llamamos a  \verb|bt_futoshiki()|, que ha sido
+ modificada para tener en cuenta la matriz de dominios (realizar comprobaciones sólo con números que 
+ se encuentren dentro del dominio de una casilla) y esta resolverá el tablero, pero partiendo con un problema simplificado, lo que
+ a priori debería mejorar el tiempo de resolución.
 
 \verb||
 \textbf{}

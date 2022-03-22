@@ -6,6 +6,6 @@
 \contentsline {subsubsection}{\numberline {2.1.2}Problemas durante la implementación}{4}{subsubsection.2.1.2}%
 \contentsline {subsection}{\numberline {2.2}Algoritmo AC3}{5}{subsection.2.2}%
 \contentsline {subsubsection}{\numberline {2.2.1}Funciones y métodos}{5}{subsubsection.2.2.1}%
-\contentsline {subsubsection}{\numberline {2.2.2}Problemas durante la implementación}{6}{subsubsection.2.2.2}%
-\contentsline {subsection}{\numberline {2.3}Foward Checking}{6}{subsection.2.3}%
-\contentsline {section}{\numberline {3}}{6}{section.3}%
+\contentsline {subsubsection}{\numberline {2.2.2}Problemas durante la implementación}{7}{subsubsection.2.2.2}%
+\contentsline {subsection}{\numberline {2.3}Foward Checking}{7}{subsection.2.3}%
+\contentsline {section}{\numberline {3}}{7}{section.3}%
