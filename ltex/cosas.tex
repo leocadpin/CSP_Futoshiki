@@ -1,5 +1,7 @@
 \documentclass[12pt]{article}
 
+\usepackage[spanish,es-tabla]{babel}
+
 \usepackage{amsmath}
 
 \usepackage{eso-pic}
@@ -262,6 +264,7 @@ como por todos los métodos de la case \textbf{matdominio}. Las nuevas funciones
 
 Ahora, el funcionamiento del algortimo consiste en los siguientes pasos: 
 \begin{itemize}
+    
     \item Instanciamos uno de los valores posibles en la posición en la que nos encontramos.
     \item Razonamos hacia adelante, es decir, comprobamos si la instanciación que hemos propuesto es consistente
         con todas las demás casillas de la misma fila/columna. Si un valor no es consistente, lo eliminamos del dominio.
@@ -295,6 +298,45 @@ llamada recursiva devolvía \textit{false}.
 \section{Estudio de los tiempos de ejecución}
 
 En este apartado procederemos a comparar y comentar los distintos tiempos de ejecución y pasos entre las diferentes estrategias 
-de resolución descritas durante la práctica.
+de resolución descritas durante la práctica. Además, a modo de experimentación, se han medido los tiempos resultantes de combinnar
+las estrategias de AC3 y forward checking.
+
+\begin{table}[H]
+    \begin{center}
+        \begin{tabular}{| c | c | c | c | c |}
+            \hline
+            \multicolumn{5}{ |c| }{Tiempos de ejecución (en \textbf{segundos})} \\ \hline
+            Tablero & Backtracking & AC3 & Forward Checking & FC + AC3 \\ \hline
+                        %BT             %AC      %FC     FCAC3
+            4x4     &   0,000055    &    0,000472   &       &   \\
+            5x5     &   0,005804    &    0,004638   &       &   \\
+            6x6     &   0,000316    &    0,006238   &       &   \\
+            7x7     &   0,118968    &    0,08557    &       &   \\ 
+            9x9 (1) &               &    1,73674    &       &   \\
+            9x9 (2) &    1,36732    &    0,173556   &       &   \\ \hline
+        \end{tabular}
+        \caption{Tiempos de ejecución para distintos tamaños de tablero}
+        \label{tab:tiempo}
+    \end{center}
+\end{table} 
+
+\begin{table}[H]
+    \begin{center}
+        \begin{tabular}{| c | c | c | c | c |}
+            \hline
+            \multicolumn{5}{ |c| }{Número de Pasos dados por casa algoritmo} \\ \hline
+            Tablero & Backtracking & AC3 & Forward Checking & FC + AC3 \\ \hline
+                        %BT         %AC      %FC     FCAC3
+            4x4     &   33      &    26   &       &   \\
+            5x5     &   7.362   &    26   &       &   \\
+            6x6     &   181     &    37   &       &   \\
+            7x7     &   232.989 &    183.504   &       &   \\ 
+            9x9 (1) &           &    4.719.952   &       &   \\
+            9x9 (2) & 3.005.483 &    357.409   &       &   \\ \hline
+        \end{tabular}
+        \caption{Pasos tomados para la solución distintos tamaños de tablero}
+        \label{tab:pasos}
+    \end{center}
+\end{table} 
 
 \end{document}

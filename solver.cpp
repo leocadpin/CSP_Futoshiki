@@ -32,10 +32,12 @@ void Solver::ejecutarBT(Tablero *tablero)
         t0 = clock();
     //Llamamos a la función recursiva que sigue el esquema backtracking. Empezaremos desde la casilla 0,0
     bt_futoshiki(tablero, 0, 0, tam);
+    //Medimos tiempo
     t1 = clock();
-        double time = (double(t1-t0)/CLOCKS_PER_SEC);
-    std::cout << "El tiempor:" << time <<  std::endl;
-    std::cout << this->backTrackingJumps <<  std::endl;   
+    double time = (double(t1-t0)/CLOCKS_PER_SEC);
+    std::cout << "El tiempo de backtracking para " << tam << "x" << tam << " han sido: " << time <<  std::endl;
+    //Medimos los pasos
+    std::cout << "Los pasos de backtracking para " << tam << "x" << tam << " han sido: " << this->backTrackingJumps <<  std::endl;
 
 
 }
@@ -178,7 +180,7 @@ void Solver::ejecutarAC3(Tablero *tablero)
 {
     unsigned t0, t1;
 
-        t0 = clock();
+    t0 = clock();
     //Declaramos una serie de variables que utilizaremos
     int num = tablero -> getSize(); 
     int elem, centinela_dominio_dk = 0, aux_centinela=0, tam_kiwi;
@@ -332,11 +334,14 @@ void Solver::ejecutarAC3(Tablero *tablero)
     backTrackingJumps = 0;
     //Ahora que hemos acotado los dominios, usamos el backtracking para resolver el problema
     bt_futoshiki(tablero, 0, 0, num);
-    dominio.imprimirDominio();
-    std::cout << this->backTrackingJumps <<  std::endl;
+    //dominio.imprimirDominio();
+    //Medimos tiempo
     t1 = clock();
-        double time = (double(t1-t0)/CLOCKS_PER_SEC);
-    std::cout << "El tiempor:" << time <<  std::endl;
+    double time = (double(t1-t0)/CLOCKS_PER_SEC);
+    std::cout << "El tiempo de AC3 para " << num << "x" << num << " han sido: " << time <<  std::endl;
+    //Medimos los pasos
+    std::cout << "Los pasos de AC3 para " << num << "x" << num << " han sido: " << this->backTrackingJumps <<  std::endl;
+
     return;
 }
 
@@ -509,14 +514,16 @@ bool Solver::consistente(Tablero *tablero, int num_Vk, int x_n1, int y_n1, int x
 //FUNCION PARA EJECUTAR EL FORWARD CHECKING
 void Solver::ejecutarFC(Tablero *tablero){
     int tam = tablero -> getSize(); // tamaño del tablero
-    
+    unsigned t0, t1;
+
+
     //Le damos al dominio el tamaño del tablero
     dominio.resize_matdominios(tam);
 
     int elem = 0;
     backTrackingJumps = 0;
     //ejecutarAC3(tablero);
-    
+    t0 = clock();
     //Este primer bucle doble elimina de los dominios de las casillas que se encuentran predefinidas en el tablero 
     // todos los numeros menos el predefinido. Tambien saca el numero predefinido de los dominios de la misma fila o columna
     for(int i=0; i < tam; i++){
@@ -553,7 +560,13 @@ void Solver::ejecutarFC(Tablero *tablero){
             }
         }
     }
-    std::cout << this->backTrackingJumps <<  std::endl;
+    //Medimos tiempo
+    t1 = clock();
+    double time = (double(t1-t0)/CLOCKS_PER_SEC);
+    std::cout << "El tiempo de forward chicken para " << tam << "x" << tam << " han sido: " << time <<  std::endl;
+    //Medimos los pasos
+    std::cout << "Los pasos de forward checking para " << tam << "x" << tam << " han sido: " << this->backTrackingJumps <<  std::endl;
+
     return;
 }
 

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2022.2.18)  23 MAR 2022 14:30
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2022.2.18)  23 MAR 2022 18:28
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -22,7 +22,27 @@ File: size12.clo 2019/12/20 v1.4l Standard LaTeX file (size option)
 \abovecaptionskip=\skip47
 \belowcaptionskip=\skip48
 \bibindent=\dimen134
-) (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsmath.sty
+) (/usr/share/texlive/texmf-dist/tex/generic/babel/babel.sty
+Package: babel 2020/02/14 3.40 The Babel package
+ (/usr/share/texlive/texmf-dist/tex/generic/babel/switch.def
+File: switch.def 2020/02/14 3.40 Babel switching mechanism
+) (/usr/share/texlive/texmf-dist/tex/generic/babel-spanish/spanish.ldf
+Language: spanish.ldf 2016/03/03 v5.0p Spanish support from the babel system
+ (/usr/share/texlive/texmf-dist/tex/generic/babel/babel.def
+File: babel.def 2020/02/14 3.40 Babel common definitions
+\babel@savecnt=\count175
+\U@D=\dimen135
+ (/usr/share/texlive/texmf-dist/tex/generic/babel/txtbabel.def)
+\bbl@readstream=\read2
+\bbl@dirlevel=\count176
+)
+\es@quottoks=\toks14
+\es@quotdepth=\count177
+Package babel Info: Making " an active character on input line 561.
+Package babel Info: Making . an active character on input line 662.
+Package babel Info: Making < an active character on input line 707.
+Package babel Info: Making > an active character on input line 707.
+)) (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsmath.sty
 Package: amsmath 2020/01/20 v2.17e AMS math features
 \@mathmargin=\skip49
 
@@ -31,49 +51,49 @@ For additional information on amsmath, use the `?' option.
 Package: amstext 2000/06/29 v2.01 AMS text
  (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsgen.sty
 File: amsgen.sty 1999/11/30 v2.0 generic functions
-\@emptytoks=\toks14
-\ex@=\dimen135
+\@emptytoks=\toks15
+\ex@=\dimen136
 )) (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsbsy.sty
 Package: amsbsy 1999/11/29 v1.2d Bold Symbols
-\pmbraise@=\dimen136
+\pmbraise@=\dimen137
 ) (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsopn.sty
 Package: amsopn 2016/03/08 v2.02 operator names
 )
-\inf@bad=\count175
+\inf@bad=\count178
 LaTeX Info: Redefining \frac on input line 227.
-\uproot@=\count176
-\leftroot@=\count177
+\uproot@=\count179
+\leftroot@=\count180
 LaTeX Info: Redefining \overline on input line 389.
-\classnum@=\count178
-\DOTSCASE@=\count179
+\classnum@=\count181
+\DOTSCASE@=\count182
 LaTeX Info: Redefining \ldots on input line 486.
 LaTeX Info: Redefining \dots on input line 489.
 LaTeX Info: Redefining \cdots on input line 610.
 \Mathstrutbox@=\box45
 \strutbox@=\box46
-\big@size=\dimen137
+\big@size=\dimen138
 LaTeX Font Info:    Redeclaring font encoding OML on input line 733.
 LaTeX Font Info:    Redeclaring font encoding OMS on input line 734.
-\macc@depth=\count180
-\c@MaxMatrixCols=\count181
+\macc@depth=\count183
+\c@MaxMatrixCols=\count184
 \dotsspace@=\muskip16
-\c@parentequation=\count182
-\dspbrk@lvl=\count183
-\tag@help=\toks15
-\row@=\count184
-\column@=\count185
-\maxfields@=\count186
-\andhelp@=\toks16
-\eqnshift@=\dimen138
-\alignsep@=\dimen139
-\tagshift@=\dimen140
-\tagwidth@=\dimen141
-\totwidth@=\dimen142
-\lineht@=\dimen143
-\@envbody=\toks17
+\c@parentequation=\count185
+\dspbrk@lvl=\count186
+\tag@help=\toks16
+\row@=\count187
+\column@=\count188
+\maxfields@=\count189
+\andhelp@=\toks17
+\eqnshift@=\dimen139
+\alignsep@=\dimen140
+\tagshift@=\dimen141
+\tagwidth@=\dimen142
+\totwidth@=\dimen143
+\lineht@=\dimen144
+\@envbody=\toks18
 \multlinegap=\skip50
 \multlinetaggap=\skip51
-\mathdisplay@stack=\toks18
+\mathdisplay@stack=\toks19
 LaTeX Info: Redefining \[ on input line 2859.
 LaTeX Info: Redefining \] on input line 2860.
 ) (/usr/share/texlive/texmf-dist/tex/latex/eso-pic/eso-pic.sty
@@ -88,7 +108,7 @@ Package: ltxcmds 2019/12/15 v1.24 LaTeX kernel commands for general use (HO)
 Package: iftex 2019/11/07 v1.0c TeX engine tests
 )) (/usr/share/texlive/texmf-dist/tex/latex/graphics/keyval.sty
 Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
-\KV@toks@=\toks19
+\KV@toks@=\toks20
 ) (/usr/share/texlive/texmf-dist/tex/latex/xcolor/xcolor.sty
 Package: xcolor 2016/05/11 v2.12 LaTeX color extensions (UK)
  (/usr/share/texlive/texmf-dist/tex/latex/graphics-cfg/color.cfg
@@ -111,14 +131,14 @@ Package xcolor Info: Model `wave' substituted by `hsb' on input line 1371.
 Package: expl3 2020-02-14 L3 programming layer (loader) 
  (/usr/share/texlive/texmf-dist/tex/latex/l3backend/l3backend-pdfmode.def
 File: l3backend-pdfmode.def 2020-02-03 L3 backend support: PDF mode
-\l__kernel_color_stack_int=\count187
+\l__kernel_color_stack_int=\count190
 \l__pdf_internal_box=\box47
 )) (/usr/share/texlive/texmf-dist/tex/latex/l3packages/xparse/xparse.sty
 Package: xparse 2020-02-14 L3 Experimental document command parser
-\l__xparse_current_arg_int=\count188
-\g__xparse_grabber_int=\count189
-\l__xparse_m_args_int=\count190
-\l__xparse_v_nesting_int=\count191
+\l__xparse_current_arg_int=\count191
+\g__xparse_grabber_int=\count192
+\l__xparse_m_args_int=\count193
+\l__xparse_v_nesting_int=\count194
 )
 Package: lipsum 2019/01/02 v2.2 150 paragraphs of Lorem Ipsum dummy text
  (/usr/share/texlive/texmf-dist/tex/latex/lipsum/lipsum.ltd.tex
@@ -135,32 +155,12 @@ Package: kvoptions 2019/11/29 v3.13 Key value format for package options (HO)
 Package: kvsetkeys 2019/12/15 v1.18 Key value parser (HO)
 )) (/usr/share/texlive/texmf-dist/tex/latex/etoolbox/etoolbox.sty
 Package: etoolbox 2019/09/21 v2.5h e-TeX tools for LaTeX (JAW)
-\etb@tempcnta=\count192
+\etb@tempcnta=\count195
 )) (/usr/share/texlive/texmf-dist/tex/latex/base/inputenc.sty
 Package: inputenc 2018/08/11 v1.3c Input encoding file
-\inpenc@prehook=\toks20
-\inpenc@posthook=\toks21
-) (/usr/share/texlive/texmf-dist/tex/generic/babel/babel.sty
-Package: babel 2020/02/14 3.40 The Babel package
- (/usr/share/texlive/texmf-dist/tex/generic/babel/switch.def
-File: switch.def 2020/02/14 3.40 Babel switching mechanism
-) (/usr/share/texlive/texmf-dist/tex/generic/babel-spanish/spanish.ldf
-Language: spanish.ldf 2016/03/03 v5.0p Spanish support from the babel system
- (/usr/share/texlive/texmf-dist/tex/generic/babel/babel.def
-File: babel.def 2020/02/14 3.40 Babel common definitions
-\babel@savecnt=\count193
-\U@D=\dimen144
- (/usr/share/texlive/texmf-dist/tex/generic/babel/txtbabel.def)
-\bbl@readstream=\read2
-\bbl@dirlevel=\count194
-)
-\es@quottoks=\toks22
-\es@quotdepth=\count195
-Package babel Info: Making " an active character on input line 561.
-Package babel Info: Making . an active character on input line 662.
-Package babel Info: Making < an active character on input line 707.
-Package babel Info: Making > an active character on input line 707.
-)) (/usr/share/texlive/texmf-dist/tex/latex/hyperref/hyperref.sty
+\inpenc@prehook=\toks21
+\inpenc@posthook=\toks22
+) (/usr/share/texlive/texmf-dist/tex/latex/hyperref/hyperref.sty
 Package: hyperref 2020/01/14 v7.00d Hypertext links for LaTeX
  (/usr/share/texlive/texmf-dist/tex/latex/pdftexcmds/pdftexcmds.sty
 Package: pdftexcmds 2019/11/24 v0.31 Utility functions of pdfTeX for LuaTeX (HO)
@@ -267,22 +267,24 @@ LaTeX Info: Redefining \% on input line 26.
 )
 \openout1 = `cosas.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 53.
-LaTeX Font Info:    ... okay on input line 53.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 53.
-LaTeX Font Info:    ... okay on input line 53.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 53.
-LaTeX Font Info:    ... okay on input line 53.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 53.
-LaTeX Font Info:    ... okay on input line 53.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 53.
-LaTeX Font Info:    ... okay on input line 53.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 53.
-LaTeX Font Info:    ... okay on input line 53.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 53.
-LaTeX Font Info:    ... okay on input line 53.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 53.
-LaTeX Font Info:    ... okay on input line 53.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 55.
+LaTeX Font Info:    ... okay on input line 55.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 55.
+LaTeX Font Info:    ... okay on input line 55.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 55.
+LaTeX Font Info:    ... okay on input line 55.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 55.
+LaTeX Font Info:    ... okay on input line 55.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 55.
+LaTeX Font Info:    ... okay on input line 55.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 55.
+LaTeX Font Info:    ... okay on input line 55.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 55.
+LaTeX Font Info:    ... okay on input line 55.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 55.
+LaTeX Font Info:    ... okay on input line 55.
+LaTeX Info: Redefining \. on input line 55.
+LaTeX Info: Redefining \% on input line 55.
 \AtBeginShipoutBox=\box50
  (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
@@ -303,9 +305,7 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 48
  (/usr/share/texlive/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 ))
-LaTeX Info: Redefining \. on input line 53.
-LaTeX Info: Redefining \% on input line 53.
-Package hyperref Info: Link coloring OFF on input line 53.
+Package hyperref Info: Link coloring OFF on input line 55.
  (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2019/09/16 v2.46 Cross-referencing by name of section
  (/usr/share/texlive/texmf-dist/tex/latex/refcount/refcount.sty
@@ -315,9 +315,9 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
 \c@section@level=\count280
 )
-LaTeX Info: Redefining \ref on input line 53.
-LaTeX Info: Redefining \pageref on input line 53.
-LaTeX Info: Redefining \nameref on input line 53.
+LaTeX Info: Redefining \ref on input line 55.
+LaTeX Info: Redefining \pageref on input line 55.
+LaTeX Info: Redefining \nameref on input line 55.
  (/home/leo/Escritorio/sis_intel/Futoshiki/CSP_Futoshiki/ltex/cosas.out) (/home/leo/Escritorio/sis_intel/Futoshiki/CSP_Futoshiki/ltex/cosas.out)
 \@outlinefile=\write3
 \openout3 = `cosas.out'.
@@ -325,7 +325,7 @@ LaTeX Info: Redefining \nameref on input line 53.
 <images/logo-ua.png, id=52, 301.125pt x 301.125pt>
 File: images/logo-ua.png Graphic file (type png)
 <use images/logo-ua.png>
-Package pdftex.def Info: images/logo-ua.png  used on input line 56.
+Package pdftex.def Info: images/logo-ua.png  used on input line 58.
 (pdftex.def)             Requested size: 150.56212pt x 150.56212pt.
  [1
 
@@ -338,65 +338,80 @@ LaTeX Info: Redefining \% on input line 1.
 
 File: images/logo-ua.png Graphic file (type png)
 <use images/logo-ua.png>
-Package pdftex.def Info: images/logo-ua.png  used on input line 58.
+Package pdftex.def Info: images/logo-ua.png  used on input line 60.
 (pdftex.def)             Requested size: 150.56212pt x 150.56212pt.
  [2]
 
-LaTeX Warning: Reference `ch:' on page 3 undefined on input line 70.
+LaTeX Warning: Reference `ch:' on page 3 undefined on input line 72.
 
 File: images/logo-ua.png Graphic file (type png)
 <use images/logo-ua.png>
-Package pdftex.def Info: images/logo-ua.png  used on input line 109.
+Package pdftex.def Info: images/logo-ua.png  used on input line 111.
 (pdftex.def)             Requested size: 150.56212pt x 150.56212pt.
 [3]
 File: images/logo-ua.png Graphic file (type png)
 <use images/logo-ua.png>
-Package pdftex.def Info: images/logo-ua.png  used on input line 140.
+Package pdftex.def Info: images/logo-ua.png  used on input line 142.
 (pdftex.def)             Requested size: 150.56212pt x 150.56212pt.
  [4]
 File: images/logo-ua.png Graphic file (type png)
 <use images/logo-ua.png>
-Package pdftex.def Info: images/logo-ua.png  used on input line 178.
+Package pdftex.def Info: images/logo-ua.png  used on input line 180.
 (pdftex.def)             Requested size: 150.56212pt x 150.56212pt.
  [5]
 File: images/logo-ua.png Graphic file (type png)
 <use images/logo-ua.png>
-Package pdftex.def Info: images/logo-ua.png  used on input line 212.
+Package pdftex.def Info: images/logo-ua.png  used on input line 214.
 (pdftex.def)             Requested size: 150.56212pt x 150.56212pt.
  [6]
 File: images/logo-ua.png Graphic file (type png)
 <use images/logo-ua.png>
-Package pdftex.def Info: images/logo-ua.png  used on input line 246.
+Package pdftex.def Info: images/logo-ua.png  used on input line 248.
 (pdftex.def)             Requested size: 150.56212pt x 150.56212pt.
  [7]
 File: images/logo-ua.png Graphic file (type png)
 <use images/logo-ua.png>
-Package pdftex.def Info: images/logo-ua.png  used on input line 272.
+Package pdftex.def Info: images/logo-ua.png  used on input line 275.
 (pdftex.def)             Requested size: 150.56212pt x 150.56212pt.
  [8]
 <images/cola_de_prior.png, id=107, 565.11125pt x 49.18375pt>
 File: images/cola_de_prior.png Graphic file (type png)
 <use images/cola_de_prior.png>
-Package pdftex.def Info: images/cola_de_prior.png  used on input line 290.
+Package pdftex.def Info: images/cola_de_prior.png  used on input line 293.
 (pdftex.def)             Requested size: 282.55493pt x 24.5918pt.
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 300.
 File: images/logo-ua.png Graphic file (type png)
 <use images/logo-ua.png>
-Package pdftex.def Info: images/logo-ua.png  used on input line 300.
+Package pdftex.def Info: images/logo-ua.png  used on input line 322.
 (pdftex.def)             Requested size: 150.56212pt x 150.56212pt.
  [9pdfTeX warning (ext4): destination with the same identifier (name{figure.1}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.300 \end{document}
-                     </home/leo/Escritorio/sis_intel/Futoshiki/CSP_Futoshiki/ltex/images/cola_de_prior.png>]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 300.
+l.322 
+       </home/leo/Escritorio/sis_intel/Futoshiki/CSP_Futoshiki/ltex/images/cola_de_prior.png>]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 342.
+File: images/logo-ua.png Graphic file (type png)
+<use images/logo-ua.png>
+Package pdftex.def Info: images/logo-ua.png  used on input line 342.
+(pdftex.def)             Requested size: 150.56212pt x 150.56212pt.
+ [10pdfTeX warning (ext4): destination with the same identifier (name{table.1}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.342 \end{document}
+                    pdfTeX warning (ext4): destination with the same identifier (name{table.2}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.342 \end{document}
+                    ]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 342.
  (/home/leo/Escritorio/sis_intel/Futoshiki/CSP_Futoshiki/ltex/cosas.aux
 LaTeX Info: Redefining \. on input line 26.
 LaTeX Info: Redefining \% on input line 26.
 )
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 300.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 300.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 342.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 342.
 Package rerunfilecheck Info: File `cosas.out' has not changed.
 (rerunfilecheck)             Checksum: 03E6B395AF512D1A7228AE611257A650;907.
 
@@ -405,18 +420,18 @@ LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 8355 strings out of 481239
- 130160 string characters out of 5920377
- 507695 words of memory out of 5000000
- 23445 multiletter control sequences out of 15000+600000
+ 8362 strings out of 481239
+ 130227 string characters out of 5920377
+ 508889 words of memory out of 5000000
+ 23449 multiletter control sequences out of 15000+600000
  539147 words of font info for 48 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  36i,14n,41p,852b,407s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on /home/leo/Escritorio/sis_intel/Futoshiki/CSP_Futoshiki/ltex/cosas.pdf (9 pages, 97116 bytes).
+Output written on /home/leo/Escritorio/sis_intel/Futoshiki/CSP_Futoshiki/ltex/cosas.pdf (10 pages, 99048 bytes).
 PDF statistics:
- 141 PDF objects out of 1000 (max. 8388607)
- 119 compressed objects within 2 object streams
- 24 named destinations out of 1000 (max. 500000)
+ 148 PDF objects out of 1000 (max. 8388607)
+ 125 compressed objects within 2 object streams
+ 27 named destinations out of 1000 (max. 500000)
  107 words of extra memory for PDF output out of 10000 (max. 10000000)
 
