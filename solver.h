@@ -16,7 +16,7 @@ public:
     void ejecutarFC(Tablero *);
 
     void instanciar(matdominios &, int, int, int, int);
-    void restaura(matdominios &, int, int, int);
+    void restaura( matdominios &, int, int, int);
     bool consistente_fc(Tablero *, int , int , int , int , int , int);
     bool bt_futoshiki(Tablero *, int, int, int);
     bool fc_futoshiki(Tablero *, int, int, int);

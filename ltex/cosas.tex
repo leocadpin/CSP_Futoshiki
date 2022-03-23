@@ -51,7 +51,7 @@ Leopoldo Cadavid Piñeroooooooo
 
 
 
-
+\setlength{\parindent}{8mm}
 \begin{document}
 
 \maketitle
@@ -69,7 +69,7 @@ Leopoldo Cadavid Piñeroooooooo
 
 \section{Algoritmos impletmentados}
 Para cada algoritmo comentaremos las funciones añadidas y la explicación general de su funcionamiento, añadiendo también un apartado comentando fallos o
-problemas durante la implementación. Posteriormente, en \ref*{ch:} se comentarán las diferencias temporales 
+problemas durante la implementación. Posteriormente, en el apartado \ref{ch:tiempos} se comentarán las diferencias temporales 
 con los demás algoritmos.
 
 \subsection{Backtracking}
@@ -295,11 +295,11 @@ llamada recursiva devolvía \textit{false}.
     \label{fig:colprior}
 \end{figure}
 
-\section{Estudio de los tiempos de ejecución}
+\section{Estudio de los tiempos de ejecución y conclusiones}\label{ch:tiempos}
 
 En este apartado procederemos a comparar y comentar los distintos tiempos de ejecución y pasos entre las diferentes estrategias 
-de resolución descritas durante la práctica. Además, a modo de experimentación, se han medido los tiempos resultantes de combinnar
-las estrategias de AC3 y forward checking.
+de resolución descritas durante la práctica. Además, a modo de experimentación, se han medido los tiempos resultantes de combinar
+las estrategias de AC3 y forward checking. Los resultados han sido los siguientes:
 
 \begin{table}[H]
     \begin{center}
@@ -307,13 +307,13 @@ las estrategias de AC3 y forward checking.
             \hline
             \multicolumn{5}{ |c| }{Tiempos de ejecución (en \textbf{segundos})} \\ \hline
             Tablero & Backtracking & AC3 & Forward Checking & FC + AC3 \\ \hline
-                        %BT             %AC      %FC     FCAC3
-            4x4     &   0,000055    &    0,000472   &       &   \\
-            5x5     &   0,005804    &    0,004638   &       &   \\
-            6x6     &   0,000316    &    0,006238   &       &   \\
-            7x7     &   0,118968    &    0,08557    &       &   \\ 
-            9x9 (1) &               &    1,73674    &       &   \\
-            9x9 (2) &    1,36732    &    0,173556   &       &   \\ \hline
+                        %BT             %AC             %FC             FCAC3
+            4x4     &   0,000055    &    0,000472   &   0,000181    &    0,000772   \\
+            5x5     &   0,005804    &    0,004638   &   0,011652    &    0,004686   \\
+            6x6     &   0,000316    &    0,006238   &   0,002783    &    0,005765   \\
+            7x7     &   0,118968    &    0,08557    &   0,518506    &    0,316627   \\ 
+            9x9 (1) &       ??        &    1,73674    &    ??           &    6,044      \\
+            9x9 (2) &    1,36732    &    0,173556   &    3,47478    &    0,406233   \\ \hline
         \end{tabular}
         \caption{Tiempos de ejecución para distintos tamaños de tablero}
         \label{tab:tiempo}
@@ -327,16 +327,26 @@ las estrategias de AC3 y forward checking.
             \multicolumn{5}{ |c| }{Número de Pasos dados por casa algoritmo} \\ \hline
             Tablero & Backtracking & AC3 & Forward Checking & FC + AC3 \\ \hline
                         %BT         %AC      %FC     FCAC3
-            4x4     &   33      &    26   &       &   \\
-            5x5     &   7.362   &    26   &       &   \\
-            6x6     &   181     &    37   &       &   \\
-            7x7     &   232.989 &    183.504   &       &   \\ 
-            9x9 (1) &           &    4.719.952   &       &   \\
-            9x9 (2) & 3.005.483 &    357.409   &       &   \\ \hline
+            4x4     &   33      &    26   &    17       & 17  \\
+            5x5     &   7.362   &    26   &    1902     & 25 \\
+            6x6     &   181     &    37   &    110      & 36  \\
+            7x7     &   232.989 &    183.504 & 120.765  & 76.465  \\ 
+            9x9 (1) &     ??      &    4.719.952   &   ??   &  774.559 \\
+            9x9 (2) & 3.005.483 &    357.409   &    455.114   &  47.251 \\ \hline
         \end{tabular}
         \caption{Pasos tomados para la solución distintos tamaños de tablero}
         \label{tab:pasos}
     \end{center}
 \end{table} 
+
+Como podemos observar, el esquema que nos da un mejor resultado en promedio es la solución AC3. Aunque en los tableros de
+4x4 y 5x5 vemos un tiempos mejores con backtracking, esto ocurre debido al coste fijo que tiene para AC3 recorrer todas las
+aristas. Para tamaños mayores observamos que el algoritmo AC3 nos ayuda a reducir en gran magnitud el tiempo.
+ Un caso muy notorio es con los tableros de 
+ 9x9 donde el \textit{V1B1F2\_9} tarda casi 10 veces menos en ser resuelto o el \textit{V1B1F2\_9} que pasa de
+no poder ser resuelto en un tiempo menor a varios minutos, a ser resuelto en 1,73 segundos. 
+
+En cuanto a los pasos, vemos que AC3 siempre ayudará tanto a Forward Checking como a Backtracking, a realizar menos pasos,
+aunque sea a costa de un coste fijo inicial. 
 
 \end{document}

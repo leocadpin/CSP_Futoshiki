@@ -521,8 +521,8 @@ void Solver::ejecutarFC(Tablero *tablero){
     dominio.resize_matdominios(tam);
 
     int elem = 0;
-    backTrackingJumps = 0;
-    //ejecutarAC3(tablero);
+    
+    
     t0 = clock();
     //Este primer bucle doble elimina de los dominios de las casillas que se encuentran predefinidas en el tablero 
     // todos los numeros menos el predefinido. Tambien saca el numero predefinido de los dominios de la misma fila o columna
@@ -545,11 +545,12 @@ void Solver::ejecutarFC(Tablero *tablero){
             }
         }
     }
-
+    //ejecutarAC3(tablero); //Esto es para cuando probamos AC3 Y FORWARD
     //Llamamos a la funcion recursiva de forward checking, empezaremos en la posicion 0,0
+    backTrackingJumps = 0;
     fc_futoshiki(tablero, 0, 0, tam);
-    dominio.imprimirDominio();
-
+    //dominio.imprimirDominio();
+    t1 = clock();
     //Con este bucle rellenamos el tablero, una vez obtenida la solucion para los dominios con Forward Checking
     for(int i = 0; i<tam; i++){
         for(int j = 0; j<tam; j++){
@@ -561,7 +562,7 @@ void Solver::ejecutarFC(Tablero *tablero){
         }
     }
     //Medimos tiempo
-    t1 = clock();
+    
     double time = (double(t1-t0)/CLOCKS_PER_SEC);
     std::cout << "El tiempo de forward chicken para " << tam << "x" << tam << " han sido: " << time <<  std::endl;
     //Medimos los pasos

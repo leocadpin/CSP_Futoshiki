@@ -7,7 +7,7 @@
 \contentsline {subsection}{\numberline {2.2}Algoritmo AC3}{5}{subsection.2.2}%
 \contentsline {subsubsection}{\numberline {2.2.1}Funciones y métodos}{5}{subsubsection.2.2.1}%
 \contentsline {subsubsection}{\numberline {2.2.2}Problemas durante la implementación}{7}{subsubsection.2.2.2}%
-\contentsline {subsection}{\numberline {2.3}Foward Checking}{7}{subsection.2.3}%
-\contentsline {subsubsection}{\numberline {2.3.1}Funciones y métodos}{7}{subsubsection.2.3.1}%
+\contentsline {subsection}{\numberline {2.3}Foward Checking}{8}{subsection.2.3}%
+\contentsline {subsubsection}{\numberline {2.3.1}Funciones y métodos}{8}{subsubsection.2.3.1}%
 \contentsline {subsubsection}{\numberline {2.3.2}Problemas durante la implementación}{9}{subsubsection.2.3.2}%
-\contentsline {section}{\numberline {3}Estudio de los tiempos de ejecución}{9}{section.3}%
+\contentsline {section}{\numberline {3}Estudio de los tiempos de ejecución y conclusiones}{9}{section.3}%
