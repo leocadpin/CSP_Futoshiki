@@ -141,10 +141,10 @@ Durante la implementación del algoritmo se dieron algunos problemas, que consig
 
 \subsection{Algoritmo AC3}
 
-\subsubsection{Funciones y métodos}
+\subsubsection{Funciones y métodos}\label{ch:eisitris}
 
 Para la implementación de este algoritmo, con el fin de seguir la estructura aprendida en clase, se implementaron 
-nuevas clases al proyecto, además de añadir nuevos métodos y estructuras.
+nuevas clases al proyecto, además de añadir nuevos métodos y estructuras de datos.
 
 Primero veamos las \textbf{clases} creadas:
 
@@ -229,12 +229,62 @@ Tras hacer los arreglos en el dominio con AC3, llamamos a  \verb|bt_futoshiki()|
  se encuentren dentro del dominio de una casilla) y esta resolverá el tablero, pero partiendo con un problema simplificado, lo que
  a priori debería mejorar el tiempo de resolución.
 
+
+
+\subsubsection{Problemas durante la implementación}
+
+Durante la implementación de AC3,  no hubo grandes problemas más allá de errores de compilación puntuales o 
+problemas de \textit{segmentation fault}. Aunque si es cierto que hicieron falta muchas pruebas para llegar a la idea
+de usar la cola de descartes o comprobar que las clases implementadas funcionaban bien con el código.
+
+\subsection{Foward Checking}
+
+\subsubsection{Funciones y métodos}
+
+Para la implementación de Forward Checking, se reutilizaron varios métodos ya descritos en el apartado anterior \ref{ch:eisitris},
+como por todos los métodos de la case \textbf{matdominio}. Las nuevas funciones y estructuras añadidas para este algoritmo son:
+
+\begin{itemize}
+    \item \textbf{Matriz de podados:} es una matriz del tipo \textbf{matdominios}, análoga a la matriz de dominio pero que se usa
+        para saber, en cada nivel, que valores han sido eliminados del dominio. Se recurrirá a esta en caso de que queramos reestablecer 
+        todos los valores eliminados en una determinada instanciación.
+    \item \verb|ejecutarFC():| función dada para la práctica donde sacaremos los números prefijados de los dominios correspondientes y 
+        donde rellenaremos el tablero una vez la función recursiva haya acabado.
+    \item \verb|fc_futoshiki():| función recursiva y la principal del esquema de Forward Checking. 
+    \item \verb|forward():| función que realiza el "razonamiento hacia adelante". 
+    \item \verb|instanciar():| función que instancia un valor a una posición del dominio, sacando los demás posibles
+        valores del dominio de esa casilla.
+    \item \verb|restaurar():| en esta función usaremos la matriz de podados para volver a introducir todos los
+        valores que fueron podados por la instanciación actual.
+    \item \verb|consistente_fc():| es prácticamente la misma función que usamos para AC3, pero esta solo realiza la comparación
+        entre un solo par de valores.     
+\end{itemize}
+
+Ahora, el funcionamiento del algortimo consiste en los siguientes pasos: 
+\begin{itemize}
+    \item Instanciamos uno de los valores posibles en la posición en la que nos encontramos.
+    \item Razonamos hacia adelante, es decir, comprobamos si la instanciación que hemos propuesto es consistente
+        con todas las demás casillas de la misma fila/columna. Si un valor no es consistente, lo eliminamos del dominio.
+    \item Si no hay valores que consigan hacer cumplir el razonamiento hacia adelante, debemos restaurar todos los múmeros podados.
+    \item Si el razonamiento no da problemas, llamamos a la recursividad para la siguiente casilla.
+    \item En caso de que ningún valor de los probados de resultados, debemos restaurar todo lo podado a partir de la casilla actual y 
+        volver hacia atrás.
+    \item Si hemos llegado a la ultima posición, consideraremos que tenemos el resultado correcto.
+    
+
+\end{itemize}
+
 \verb||
 \textbf{}
 \textit{}
 
 \subsubsection{Problemas durante la implementación}
-\subsection{Foward Checking}
+
+El principal problema que dio la implementación del algoritmo surge de no haber tenido en cuenta, al principio,
+que se debían arreglar los dominios cuando realizamos la instanciación. Esto provocaba problemas a la hora de volver hacia atrás. Otro
+problema fue considerar que el código solo restauraba si \verb|forward()| devolvía \textit{false}, cuando debía restaurar también si la 
+llamada recursiva devolvía \textit{false}.
+
 \begin{figure}[h]
     \centering
     \includegraphics[scale=0.5]{cola_de_prior.png}
@@ -242,7 +292,9 @@ Tras hacer los arreglos en el dominio con AC3, llamamos a  \verb|bt_futoshiki()|
     \label{fig:colprior}
 \end{figure}
 
-\section{}
+\section{Estudio de los tiempos de ejecución}
 
+En este apartado procederemos a comparar y comentar los distintos tiempos de ejecución y pasos entre las diferentes estrategias 
+de resolución descritas durante la práctica.
 
 \end{document}
