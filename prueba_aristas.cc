@@ -17,7 +17,7 @@ int main(){
         }
     }
 
-     Arista a = Arista(mat[0][0], mat[0][1]);
+    Arista a = Arista(mat[0][0], mat[0][1]);
     // a.imprimirArista();
     for(int i=0; i < num; i++){
          for(int j=0; j < num; j++){
@@ -26,6 +26,8 @@ int main(){
                 for(int l=j+1; l<num; l++){
                    Arista b = Arista( mat[i][j], mat[i][l]);
                    cola_aristas.push(b);
+                   b = Arista( mat[i][l], mat[i][j]);
+                   cola_aristas.push(b);
                 }
             }
 
@@ -33,6 +35,8 @@ int main(){
             if(i<num-1){
                 for(int l=i+1; l<num; l++){
                    Arista b = Arista( mat[i][j], mat[l][j]);
+                   cola_aristas.push(b);
+                   b = Arista( mat[l][j], mat[i][j]);
                    cola_aristas.push(b);
                 }
             }

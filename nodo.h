@@ -1,6 +1,8 @@
 #ifndef _NODO_
 #define _NODO_
 
+//CLASE NODO: LA USAMOS PARA REPRESENTAR LA ESTRUCTURA DE UN NODO 
+//(en esencia, un punto con coordenadas x y)
 class Nodo
 {
 private:
